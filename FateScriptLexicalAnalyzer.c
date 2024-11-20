@@ -53,8 +53,9 @@ typedef struct
 } Token;
 
 // Function to classify and print token
-void printToken(Token token)
+void printToken(Token token, FILE *file)
 {
+    // Print to console
     switch (token.type)
     {
     case KEYWORD:
@@ -81,10 +82,38 @@ void printToken(Token token)
     default:
         printf("Error: Unknown token %s\n", token.value);
     }
+
+    // Write to the file
+    switch (token.type)
+    {
+    case KEYWORD:
+        fprintf(file, "Keyword: %s\n", token.value);
+        break;
+    case RESERVED_WORDS:
+        fprintf(file, "Reserved Word: %s\n", token.value);
+        break;
+    case IDENTIFIER:
+        fprintf(file, "Identifier: %s\n", token.value);
+        break;
+    case NUMBER:
+        fprintf(file, "Number: %s\n", token.value);
+        break;
+    case OPERATOR:
+        fprintf(file, "Operator: %s\n", token.value);
+        break;
+    case DELIMITER:
+        fprintf(file, "Delimiter: %s\n", token.value);
+        break;
+    case COMMENT:
+        fprintf(file, "Comment: %s\n", token.value);
+        break;
+    default:
+        fprintf(file, "Error: Unknown token %s\n", token.value);
+    }
 }
 
 // Lexical analyzer function
-void lexicalAnalyzer(const char *input)
+void lexicalAnalyzer(const char *input, FILE *file)
 {
     int i = 0, j = 0;
     char currentChar;
@@ -113,7 +142,7 @@ void lexicalAnalyzer(const char *input)
                 currentToken.value[j++] = input[i++];
             }
             currentToken.value[j] = '\0';
-            printToken(currentToken);
+            printToken(currentToken, file);
         }
         // Handle multi-line comments (starting with """ and ending with """)
         else if (input[i] == '"' && input[i + 1] == '"' && input[i + 2] == '"')
@@ -139,7 +168,7 @@ void lexicalAnalyzer(const char *input)
             }
 
             currentToken.value[j] = '\0';
-            printToken(currentToken);
+            printToken(currentToken, file);
         }
         // Handle identifiers, reserved words, and keywords
         else if (isalpha(currentChar))
@@ -163,7 +192,7 @@ void lexicalAnalyzer(const char *input)
             {
                 currentToken.type = IDENTIFIER;
             }
-            printToken(currentToken);
+            printToken(currentToken, file);
         }
         // Handle numbers
         else if (isdigit(currentChar))
@@ -175,7 +204,7 @@ void lexicalAnalyzer(const char *input)
             }
             currentToken.value[j] = '\0';
             currentToken.type = NUMBER;
-            printToken(currentToken);
+            printToken(currentToken, file);
         }
         // Handle operators
         else if (strchr("+-*/=<>", currentChar))
@@ -183,7 +212,7 @@ void lexicalAnalyzer(const char *input)
             currentToken.value[0] = currentChar;
             currentToken.value[1] = '\0';
             currentToken.type = OPERATOR;
-            printToken(currentToken);
+            printToken(currentToken, file);
             i++;
         }
         // Handle delimiters
@@ -192,7 +221,7 @@ void lexicalAnalyzer(const char *input)
             currentToken.value[0] = currentChar;
             currentToken.value[1] = '\0';
             currentToken.type = DELIMITER;
-            printToken(currentToken);
+            printToken(currentToken, file);
             i++;
         }
         // Handle unknown characters
@@ -201,7 +230,7 @@ void lexicalAnalyzer(const char *input)
             currentToken.value[0] = currentChar;
             currentToken.value[1] = '\0';
             currentToken.type = ERROR;
-            printToken(currentToken);
+            printToken(currentToken, file);
             i++;
         }
     }
@@ -215,7 +244,7 @@ int main()
     int i = 0;
 
     // Open the file in read mode
-    file = fopen(filename, "r");
+    file = fopen("Symbol Table.txt", "w"); // Open for writing
 
     if (file == NULL)
     {
@@ -224,25 +253,34 @@ int main()
         return 1;
     }
 
+    // Open the source file
+    FILE *sourceFile = fopen(filename, "r");
+
+    if (sourceFile == NULL)
+    {
+        // Error handling if the file cannot be opened
+        perror("Error opening source file");
+        return 1;
+    }
+
     // Read the content of the file into input buffer
-    while ((input[i] = fgetc(file)) != EOF && i < sizeof(input) - 1)
+    i = 0;
+    while ((input[i] = fgetc(sourceFile)) != EOF && i < sizeof(input) - 1)
     {
         i++;
     }
     input[i] = '\0'; // Null-terminate the string
 
-    // Close the file after reading
-    fclose(file);
+    // Close the source file after reading
+    fclose(sourceFile);
 
     printf("\nTokens from file '%s':\n", filename);
-    lexicalAnalyzer(input);
+    lexicalAnalyzer(input, file); // Perform lexical analysis and write to the file
 
-    // Ask for user input to test
-    printf("\nEnter another line of code for lexical analysis:\n");
-    fgets(input, sizeof(input), stdin); // Read user input
+    // Close the output file after writing
+    fclose(file);
 
-    printf("\nTokens from user input:\n");
-    lexicalAnalyzer(input);
+    printf("\nLexical analysis is complete. Output written to 'Symbol Table.txt'.\n");
 
     return 0;
 }

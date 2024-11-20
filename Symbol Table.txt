@@ -1,0 +1,8 @@
+Keyword: int
+Identifier: age
+Operator: =
+Number: 98
+Delimiter: ;
+Keyword: if
+Keyword: else
+Keyword: elif
