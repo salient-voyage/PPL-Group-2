@@ -209,13 +209,40 @@ void lexicalAnalyzer(const char *input)
 
 int main()
 {
+    FILE *file;
+    char *filename = "FateScript Files/sample.fate"; // Path to the file
     char input[1000];
+    int i = 0;
 
-    // Ask the user for input
-    printf("Enter a line of code for lexical analysis:\n");
+    // Open the file in read mode
+    file = fopen(filename, "r");
+
+    if (file == NULL)
+    {
+        // Error handling if the file cannot be opened
+        perror("Error opening file");
+        return 1;
+    }
+
+    // Read the content of the file into input buffer
+    while ((input[i] = fgetc(file)) != EOF && i < sizeof(input) - 1)
+    {
+        i++;
+    }
+    input[i] = '\0'; // Null-terminate the string
+
+    // Close the file after reading
+    fclose(file);
+
+    printf("\nTokens from file '%s':\n", filename);
+    lexicalAnalyzer(input);
+
+    // Ask for user input to test
+    printf("\nEnter another line of code for lexical analysis:\n");
     fgets(input, sizeof(input), stdin); // Read user input
 
-    printf("\nTokens:\n");
+    printf("\nTokens from user input:\n");
     lexicalAnalyzer(input);
+
     return 0;
 }
