@@ -17,7 +17,7 @@ typedef enum
 } TokenType;
 
 // Keywords list
-const char *keywords[] = {"int", "float", "bool", "str", "char", "if", "else", "return", "while", "elif", "while", "for", "continue", "break"};
+const char *keywords[] = {"int", "float", "bool", "str", "char", "if", "else", "return", "while", "elif", "for", "continue", "break"};
 int isKeyword(const char *str)
 {
     for (int i = 0; i < 6; i++)
