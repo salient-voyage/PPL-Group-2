@@ -8,6 +8,7 @@
 typedef enum
 {
     KEYWORD,
+    RESERVED_WORDS,
     IDENTIFIER,
     NUMBER,
     OPERATOR,
@@ -30,6 +31,20 @@ int isKeyword(const char *str)
     return 0;
 }
 
+// Reserved words list
+const char *reservedWords[] = {"async"};
+int isReservedWord(const char *str)
+{
+    for (int i = 0; i < 1; i++)
+    {
+        if (strcmp(str, reservedWords[i]) == 0)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 // Token structure
 typedef struct
 {
@@ -45,6 +60,9 @@ void printToken(Token token)
     case KEYWORD:
         printf("Keyword: %s\n", token.value);
         break;
+    case RESERVED_WORDS:
+        printf("Reserved Word: %s\n", token.value);
+        break;
     case IDENTIFIER:
         printf("Identifier: %s\n", token.value);
         break;
@@ -57,7 +75,7 @@ void printToken(Token token)
     case DELIMITER:
         printf("Delimiter: %s\n", token.value);
         break;
-    case COMMENT: // Handle comment case
+    case COMMENT:
         printf("Comment: %s\n", token.value);
         break;
     default:
@@ -123,7 +141,7 @@ void lexicalAnalyzer(const char *input)
             currentToken.value[j] = '\0';
             printToken(currentToken);
         }
-        // Handle identifiers and keywords
+        // Handle identifiers, reserved words, and keywords
         else if (isalpha(currentChar))
         {
             j = 0;
@@ -132,7 +150,19 @@ void lexicalAnalyzer(const char *input)
                 currentToken.value[j++] = input[i++];
             }
             currentToken.value[j] = '\0';
-            currentToken.type = isKeyword(currentToken.value) ? KEYWORD : IDENTIFIER;
+
+            if (isReservedWord(currentToken.value))
+            {
+                currentToken.type = RESERVED_WORDS;
+            }
+            else if (isKeyword(currentToken.value))
+            {
+                currentToken.type = KEYWORD;
+            }
+            else
+            {
+                currentToken.type = IDENTIFIER;
+            }
             printToken(currentToken);
         }
         // Handle numbers
