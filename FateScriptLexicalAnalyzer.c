@@ -20,7 +20,7 @@ typedef enum
 const char *keywords[] = {"int", "float", "bool", "str", "char", "if", "else", "return", "while", "elif", "for", "continue", "break", "const", "def", "true", "false", "print", "input"};
 int isKeyword(const char *str)
 {
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 19; i++)
     {
         if (strcmp(str, keywords[i]) == 0)
         {
