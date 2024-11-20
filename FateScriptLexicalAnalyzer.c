@@ -236,6 +236,14 @@ void lexicalAnalyzer(const char *input, FILE *file)
     }
 }
 
+// Check if the file is a .fate file
+int isFateFile(const char *filename)
+{
+    // Check the file extension
+    const char *extension = strrchr(filename, '.');
+    return (extension != NULL && strcmp(extension, ".fate") == 0);
+}
+
 int main()
 {
     FILE *file;
@@ -243,22 +251,25 @@ int main()
     char input[1000];
     int i = 0;
 
-    // Open the file in read mode
-    file = fopen("Symbol Table.txt", "w"); // Open for writing
+    // Check if the file has the .fate extension
+    if (!isFateFile(filename))
+    {
+        printf("Error: The file is not a FateScript file.\n");
+        return 1;
+    }
 
+    // Open the file in write mode for the symbol table
+    file = fopen("Symbol Table.txt", "w"); // Open for writing
     if (file == NULL)
     {
-        // Error handling if the file cannot be opened
         perror("Error opening file");
         return 1;
     }
 
-    // Open the source file
+    // Open the source .fate file
     FILE *sourceFile = fopen(filename, "r");
-
     if (sourceFile == NULL)
     {
-        // Error handling if the file cannot be opened
         perror("Error opening source file");
         return 1;
     }

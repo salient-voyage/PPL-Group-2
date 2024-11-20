@@ -6,3 +6,7 @@ Delimiter: ;
 Keyword: if
 Keyword: else
 Keyword: elif
+Keyword: const
+Keyword: def
+Keyword: print
+Keyword: input
