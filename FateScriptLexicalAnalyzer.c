@@ -17,10 +17,10 @@ typedef enum
 } TokenType;
 
 // Keywords list
-const char *keywords[] = {"int", "float", "bool", "str", "char", "if", "else", "return", "while", "elif", "for", "continue", "break", "const", "def", "true", "false", "print", "input"};
+const char *keywords[] = {"int", "float", "bool", "str", "char", "if", "else", "return", "while", "elif", "for", "continue", "break", "const", "def", "true", "false", "print", "input", "with", "value", "chance"};
 int isKeyword(const char *str)
 {
-    for (int i = 0; i < 19; i++)
+    for (int i = 0; i < 22; i++)
     {
         if (strcmp(str, keywords[i]) == 0)
         {
