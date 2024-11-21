@@ -4,7 +4,7 @@
 
 #define MAX_TOKEN_SIZE 100
 
-// Define possible token types
+// Token Categories
 typedef enum
 {
     KEYWORD,
@@ -34,7 +34,7 @@ int isKeyword(const char *str)
     return 0;
 }
 
-// Reserved words list
+// Reserved words
 const char *reservedWords[] = {"pipeline", "using", "extension", "trait", "assert", "module", "delegate"};
 int isReservedWord(const char *str)
 {
@@ -48,18 +48,18 @@ int isReservedWord(const char *str)
     return 0;
 }
 
-// Noise Words
-const char *noiseWords[] = {"if", "else", "for", "while", "and", "or", "not"};
+// Noise words
+const char *noiseWords[] = {"if", "else", "for", "while"};
 int isNoiseWord(const char *str)
 {
-    for (int i = 0; i < 5; i++) // 5 is the number of words in the array
+    for (int i = 0; i < 4; i++)
     {
         if (strcmp(str, noiseWords[i]) == 0)
         {
-            return 1; // It is a noise word
+            return 1;
         }
     }
-    return 0; // Not a noise word
+    return 0;
 }
 
 // Token structure
@@ -109,7 +109,7 @@ void printToken(Token token, FILE *file)
         printf("Error: Unknown token %s\n", token.value);
     }
 
-    // Write to the file in two-column format: Lexeme | Token
+    // Write to the file
     const char *tokenTypeStr;
     switch (token.type)
     {
@@ -147,7 +147,6 @@ void printToken(Token token, FILE *file)
         tokenTypeStr = "Error";
     }
 
-    // Write token to the file
     fprintf(file, "%-20s | %s\n", token.value, tokenTypeStr);
 }
 
@@ -160,7 +159,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
 
     while ((currentChar = input[i]) != '\0')
     {
-        // Skip actual whitespace
+        //  Actual Whitespace
         if (isspace(currentChar))
         {
             i++;
@@ -178,14 +177,13 @@ void lexicalAnalyzer(const char *input, FILE *file)
             i += 2;
         }
 
-        // Handle single-line comments (starting with #)
+        //  Single-line comments
         if (currentChar == '#')
         {
             currentToken.type = COMMENT;
             j = 0;
             currentToken.value[j++] = currentChar;
 
-            // Collect all characters until the end of the line
             i++;
             while (input[i] != '\n' && input[i] != '\0')
             {
@@ -195,7 +193,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
             printToken(currentToken, file);
         }
 
-        // Handle multi-line comments (starting with """ and ending with """)
+        // Multi-line comments
         else if (input[i] == '"' && input[i + 1] == '"' && input[i + 2] == '"')
         {
             currentToken.type = COMMENT;
@@ -204,13 +202,11 @@ void lexicalAnalyzer(const char *input, FILE *file)
             currentToken.value[j++] = input[i++];
             currentToken.value[j++] = input[i++];
 
-            // Collect all characters until the closing triple quotes
             while (!(input[i] == '"' && input[i + 1] == '"' && input[i + 2] == '"') && input[i] != '\0')
             {
                 currentToken.value[j++] = input[i++];
             }
 
-            // Add closing triple quotes if found
             if (input[i] == '"' && input[i + 1] == '"' && input[i + 2] == '"')
             {
                 currentToken.value[j++] = input[i++];
@@ -227,26 +223,26 @@ void lexicalAnalyzer(const char *input, FILE *file)
         {
             currentToken.type = STRING_LITERALS;
             j = 0;
-            currentToken.value[j++] = currentChar; // Add the opening quote
+            currentToken.value[j++] = currentChar;
 
-            i++; // Skip the opening quote
+            i++;
             while (input[i] != '"' && input[i] != '\0')
             {
                 // Handle escape sequences inside string literals
                 if (input[i] == '\\' && (input[i + 1] == '"' || input[i + 1] == '\\'))
                 {
-                    currentToken.value[j++] = input[i++]; // Add backslash
-                    currentToken.value[j++] = input[i++]; // Add the escaped character
+                    currentToken.value[j++] = input[i++];
+                    currentToken.value[j++] = input[i++];
                 }
                 else
                 {
-                    currentToken.value[j++] = input[i++]; // Add normal character
+                    currentToken.value[j++] = input[i++];
                 }
             }
 
             if (input[i] == '"')
             {
-                currentToken.value[j++] = input[i++]; // Add closing quote
+                currentToken.value[j++] = input[i++];
             }
 
             currentToken.value[j] = '\0';
@@ -296,122 +292,122 @@ void lexicalAnalyzer(const char *input, FILE *file)
         }
 
         // Handle Arithmetic, Relational, Logical, Assignment, and Unary Operators
-        else if (input[i] == '~' && input[i + 1] == '=') // Special handling for ~= operator (integer division assignment)
+        else if (input[i] == '~' && input[i + 1] == '=')
         {
             // Handle the ~= operator (integer division assignment)
             currentToken.value[0] = input[i];
             currentToken.value[1] = input[i + 1];
-            currentToken.value[2] = '\0'; // Null-terminate
-            currentToken.type = OPERATOR; // Classify as a special arithmetic operator
+            currentToken.value[2] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i += 2; // Advance past both characters
+            i += 2;
         }
-        else if ((input[i] == '+' && input[i + 1] == '+') ||   // Unary increment
-                 (input[i] == '-' && input[i + 1] == '-') ||   // Unary decrement
-                 (input[i] == '+' && isdigit(input[i + 1])) || // Unary plus (e.g. +3)
-                 (input[i] == '-' && isdigit(input[i + 1])))   // Unary minus (e.g. -3)
+        else if ((input[i] == '+' && input[i + 1] == '+') ||
+                 (input[i] == '-' && input[i + 1] == '-') ||
+                 (input[i] == '+' && isdigit(input[i + 1])) ||
+                 (input[i] == '-' && isdigit(input[i + 1])))
         {
-            // Handle unary operators (+<value>, -<value>, ++<value>, --<value>)
+            // Handle unary operators
             currentToken.value[0] = input[i];
             currentToken.value[1] = input[i + 1];
-            currentToken.value[2] = '\0'; // Null-terminate
-            currentToken.type = OPERATOR; // Classify as a unary operator
+            currentToken.value[2] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i += 2; // Advance past both characters
+            i += 2;
         }
-        else if ((input[i] == '=' && input[i + 1] == '=')) // Relational operator (==)
+        else if ((input[i] == '=' && input[i + 1] == '='))
         {
             // Handle relational equality (==)
             currentToken.value[0] = input[i];
             currentToken.value[1] = input[i + 1];
-            currentToken.value[2] = '\0'; // Null-terminate
-            currentToken.type = OPERATOR; // Classify as a relational operator
+            currentToken.value[2] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i += 2; // Advance past both characters
+            i += 2;
         }
-        else if (input[i] == '=') // Assignment operator (=)
+        else if (input[i] == '=')
         {
             // Handle assignment operator (=)
             currentToken.value[0] = input[i];
-            currentToken.value[1] = '\0'; // Null-terminate
-            currentToken.type = OPERATOR; // Classify as an assignment operator
+            currentToken.value[1] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i++; // Advance past the single '='
+            i++;
         }
-        else if ((input[i] == '+' && input[i + 1] == '=') || // Assignment (+=)
-                 (input[i] == '-' && input[i + 1] == '=') || // Assignment (-=)
-                 (input[i] == '*' && input[i + 1] == '=') || // Assignment (*=)
-                 (input[i] == '/' && input[i + 1] == '=') || // Assignment (/=)
-                 (input[i] == '%' && input[i + 1] == '=') || // Assignment (%=)
-                 (input[i] == '^' && input[i + 1] == '='))   // Assignment (^=)
+        else if ((input[i] == '+' && input[i + 1] == '=') ||
+                 (input[i] == '-' && input[i + 1] == '=') ||
+                 (input[i] == '*' && input[i + 1] == '=') ||
+                 (input[i] == '/' && input[i + 1] == '=') ||
+                 (input[i] == '%' && input[i + 1] == '=') ||
+                 (input[i] == '^' && input[i + 1] == '='))
         {
             // Handle other assignment operators (+=, -=, *=, /=, %=, ^=)
             currentToken.value[0] = input[i];
             currentToken.value[1] = input[i + 1];
-            currentToken.value[2] = '\0'; // Null-terminate
-            currentToken.type = OPERATOR; // Classify as an assignment operator
+            currentToken.value[2] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i += 2; // Advance past both characters
+            i += 2;
         }
-        else if ((input[i] == '>' && input[i + 1] == '=') || // Greater than or equal (>=)
-                 (input[i] == '<' && input[i + 1] == '=') || // Less than or equal (<=)
-                 (input[i] == '!' && input[i + 1] == '=') || // Not equal (!=)
-                 (input[i] == '=' && input[i + 1] == '='))   // Equal to (==)
+        else if ((input[i] == '>' && input[i + 1] == '=') ||
+                 (input[i] == '<' && input[i + 1] == '=') ||
+                 (input[i] == '!' && input[i + 1] == '=') ||
+                 (input[i] == '=' && input[i + 1] == '='))
         {
             // Handle two-character relational operators (>=, <=, !=, ==)
             currentToken.value[0] = input[i];
             currentToken.value[1] = input[i + 1];
-            currentToken.value[2] = '\0'; // Null-terminate the token string
-            currentToken.type = OPERATOR; // Classify as a relational operator
+            currentToken.value[2] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i += 2; // Advance past the two characters
+            i += 2;
         }
         else if (input[i] == '>' || input[i] == '<') // Handle single-character relational operators (> or <)
         {
             currentToken.value[0] = input[i];
-            currentToken.value[1] = '\0'; // Null-terminate the token string
-            currentToken.type = OPERATOR; // Classify as a relational operator
+            currentToken.value[1] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i++; // Advance past the single character
+            i++;
         }
-        else if ((input[i] == '&' && input[i + 1] == '&') || // Logical AND (&&)
-                 (input[i] == '|' && input[i + 1] == '|'))   // Logical OR (||)
+        else if ((input[i] == '&' && input[i + 1] == '&') ||
+                 (input[i] == '|' && input[i + 1] == '|'))
         {
             // Handle logical operators (&&, ||)
             currentToken.value[0] = input[i];
             currentToken.value[1] = input[i + 1];
-            currentToken.value[2] = '\0'; // Null-terminate
-            currentToken.type = OPERATOR; // Classify as a logical operator
+            currentToken.value[2] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i += 2; // Advance past both characters
+            i += 2;
         }
 
-        // Handle Logical NOT Operator (!)
+        // Handle Logical NOT Operator
         else if (input[i] == '!')
         {
-            // Handle logical NOT operator (!)
+            // Handle logical NOT operator
             currentToken.value[0] = input[i];
-            currentToken.value[1] = '\0'; // Null-terminate
-            currentToken.type = OPERATOR; // Classify as a logical operator
+            currentToken.value[1] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i++; // Advance past the '!'
+            i++;
         }
 
         // Handle arithmetic operators (+, -, *, /, ~, %, ^)
-        else if ((input[i] == '+') || // Arithmetic addition (+)
-                 (input[i] == '-') || // Arithmetic subtraction (-)
-                 (input[i] == '*') || // Arithmetic multiplication (*)
-                 (input[i] == '/') || // Arithmetic division (/)
-                 (input[i] == '~') || // Arithmetic integer division (~)
-                 (input[i] == '%') || // Arithmetic modulus (%)
-                 (input[i] == '^'))   // Arithmetic exponentiation (^)
+        else if ((input[i] == '+') ||
+                 (input[i] == '-') ||
+                 (input[i] == '*') ||
+                 (input[i] == '/') ||
+                 (input[i] == '~') ||
+                 (input[i] == '%') ||
+                 (input[i] == '^'))
         {
             // Handle arithmetic operators (+, -, *, /, ~, %, ^)
             currentToken.value[0] = input[i];
-            currentToken.value[1] = '\0'; // Null-terminate
-            currentToken.type = OPERATOR; // Classify as an arithmetic operator
+            currentToken.value[1] = '\0';
+            currentToken.type = OPERATOR;
             printToken(currentToken, file);
-            i++; // Advance past the current operator
+            i++;
         }
         // Handle delimiters
         else if (strchr(";,(){}[].'\"'", currentChar))
@@ -437,7 +433,6 @@ void lexicalAnalyzer(const char *input, FILE *file)
 // Check if the file is a .fate file
 int isFateFile(const char *filename)
 {
-    // Check the file extension
     const char *extension = strrchr(filename, '.');
     return (extension != NULL && strcmp(extension, ".fate") == 0);
 }
@@ -445,7 +440,13 @@ int isFateFile(const char *filename)
 int main()
 {
     FILE *file;
-    char *filename = "FateScript Files/sample.fate"; // Path to the file
+    char *filename = "FateScript Files/sample.fate";
+    // char *filename = "FateScript Files/sample.txt";
+    // char *filename = "FateScript Files/delimitersCommentsWhitespace.fate";
+    // char *filename = "FateScript Files/keywordsNoiseWordsReservedWords.fate";
+    // char *filename = "FateScript Files/operators.fate";
+    // char *filename = "FateScript Files/sampleProgram1.fate";
+    // char *filename = "FateScript Files/sampleProgram2.fate";
     char input[1000];
     int i = 0;
 
@@ -457,7 +458,7 @@ int main()
     }
 
     // Open the file in write mode for the symbol table
-    file = fopen("Symbol Table.txt", "w"); // Open for writing
+    file = fopen("Symbol Table.txt", "w");
     if (file == NULL)
     {
         perror("Error opening file");
@@ -482,13 +483,13 @@ int main()
     {
         i++;
     }
-    input[i] = '\0'; // Null-terminate the string
+    input[i] = '\0';
 
     // Close the source file after reading
     fclose(sourceFile);
 
     printf("\nTokens from file '%s':\n", filename);
-    lexicalAnalyzer(input, file); // Perform lexical analysis and write to the file
+    lexicalAnalyzer(input, file);
 
     // Close the output file after writing
     fclose(file);
