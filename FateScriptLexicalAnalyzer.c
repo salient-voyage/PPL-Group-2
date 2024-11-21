@@ -15,6 +15,8 @@ typedef enum
     OPERATOR,
     DELIMITER,
     COMMENT,
+    WHITESPACE,
+    STRING_LITERALS,
     ERROR
 } TokenType;
 
@@ -46,6 +48,20 @@ int isReservedWord(const char *str)
     return 0;
 }
 
+// Noise Words
+const char *noiseWords[] = {"if", "else", "for", "while", "and", "or", "not"};
+int isNoiseWord(const char *str)
+{
+    for (int i = 0; i < 5; i++) // 5 is the number of words in the array
+    {
+        if (strcmp(str, noiseWords[i]) == 0)
+        {
+            return 1; // It is a noise word
+        }
+    }
+    return 0; // Not a noise word
+}
+
 // Token structure
 typedef struct
 {
@@ -65,6 +81,9 @@ void printToken(Token token, FILE *file)
     case RESERVED_WORDS:
         printf("Reserved Word: %s\n", token.value);
         break;
+    case NOISE_WORDS:
+        printf("Noise Word: %s\n", token.value);
+        break;
     case IDENTIFIER:
         printf("Identifier: %s\n", token.value);
         break;
@@ -80,6 +99,12 @@ void printToken(Token token, FILE *file)
     case COMMENT:
         printf("Comment: %s\n", token.value);
         break;
+    case WHITESPACE:
+        printf("Whitespace: %s\n", token.value);
+        break;
+    case STRING_LITERALS:
+        printf("String Literal: %s\n", token.value);
+        break;
     default:
         printf("Error: Unknown token %s\n", token.value);
     }
@@ -93,6 +118,9 @@ void printToken(Token token, FILE *file)
         break;
     case RESERVED_WORDS:
         tokenTypeStr = "Reserved Word";
+        break;
+    case NOISE_WORDS:
+        tokenTypeStr = "Noise Word";
         break;
     case IDENTIFIER:
         tokenTypeStr = "Identifier";
@@ -109,11 +137,17 @@ void printToken(Token token, FILE *file)
     case COMMENT:
         tokenTypeStr = "Comment";
         break;
+    case WHITESPACE:
+        tokenTypeStr = "Whitespace";
+        break;
+    case STRING_LITERALS:
+        tokenTypeStr = "String Literal";
+        break;
     default:
         tokenTypeStr = "Error";
     }
 
-    // Print lexeme and token type in a formatted way to the file
+    // Write token to the file
     fprintf(file, "%-20s | %s\n", token.value, tokenTypeStr);
 }
 
@@ -126,11 +160,22 @@ void lexicalAnalyzer(const char *input, FILE *file)
 
     while ((currentChar = input[i]) != '\0')
     {
-        // Skip whitespace
+        // Skip actual whitespace
         if (isspace(currentChar))
         {
             i++;
             continue;
+        }
+
+        // Check for \n
+        if (input[i] == '\\' && input[i + 1] == 'n')
+        {
+            currentToken.value[0] = '\\';
+            currentToken.value[1] = 'n';
+            currentToken.value[2] = '\0';
+            currentToken.type = WHITESPACE;
+            printToken(currentToken, file);
+            i += 2;
         }
 
         // Handle single-line comments (starting with #)
@@ -176,6 +221,38 @@ void lexicalAnalyzer(const char *input, FILE *file)
             currentToken.value[j] = '\0';
             printToken(currentToken, file);
         }
+
+        // Handle string literals (quoted strings)
+        else if (currentChar == '"')
+        {
+            currentToken.type = STRING_LITERALS;
+            j = 0;
+            currentToken.value[j++] = currentChar; // Add the opening quote
+
+            i++; // Skip the opening quote
+            while (input[i] != '"' && input[i] != '\0')
+            {
+                // Handle escape sequences inside string literals
+                if (input[i] == '\\' && (input[i + 1] == '"' || input[i + 1] == '\\'))
+                {
+                    currentToken.value[j++] = input[i++]; // Add backslash
+                    currentToken.value[j++] = input[i++]; // Add the escaped character
+                }
+                else
+                {
+                    currentToken.value[j++] = input[i++]; // Add normal character
+                }
+            }
+
+            if (input[i] == '"')
+            {
+                currentToken.value[j++] = input[i++]; // Add closing quote
+            }
+
+            currentToken.value[j] = '\0';
+            printToken(currentToken, file);
+        }
+
         // Handle identifiers, reserved words, and keywords
         else if (isalpha(currentChar))
         {
@@ -194,12 +271,17 @@ void lexicalAnalyzer(const char *input, FILE *file)
             {
                 currentToken.type = KEYWORD;
             }
+            else if (isNoiseWord(currentToken.value))
+            {
+                currentToken.type = NOISE_WORDS;
+            }
             else
             {
                 currentToken.type = IDENTIFIER;
             }
             printToken(currentToken, file);
         }
+
         // Handle numbers
         else if (isdigit(currentChar))
         {

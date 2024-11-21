@@ -42,7 +42,7 @@ chance               | Keyword
 <=                   | Operator
 ,                    | Delimiter
 >=                   | Operator
-and                  | Identifier
+and                  | Noise Word
 or                   | Identifier
 not                  | Identifier
 !                    | Operator
@@ -60,3 +60,13 @@ bool                 | Keyword
 ?                    | Error
 !                    | Operator
 !                    | Operator
+\n                   | Whitespace
+\                    | Error
+\                    | Error
+"Jeff"               | String Literal
+if                   | Keyword
+else                 | Keyword
+for                  | Keyword
+while                | Keyword
+and                  | Noise Word
+not                  | Identifier
