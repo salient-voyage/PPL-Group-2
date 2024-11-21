@@ -1,72 +1,29 @@
 Lexeme               Token               
 ----------------------------------------
-int                  | Keyword
-age                  | Identifier
+#This program calculates the area of a rectangle | Comment
+num                  | Identifier
+length               | Identifier
 =                    | Operator
-98                   | Number
-;                    | Delimiter
-if                   | Keyword
-else                 | Keyword
-elif                 | Keyword
-const                | Keyword
-def                  | Keyword
-print                | Keyword
 input                | Keyword
-with                 | Keyword
-<                    | Operator
-value                | Identifier
->                    | Operator
-%                    | Operator
-chance               | Keyword
-+                    | Operator
-,                    | Delimiter
--                    | Operator
-,                    | Delimiter
+(                    | Delimiter
+"Enter the length of the rectangle: " | String Literal
+)                    | Delimiter
+num                  | Identifier
+width                | Identifier
+=                    | Operator
+input                | Keyword
+(                    | Delimiter
+"Enter the width of the rectangle: " | String Literal
+)                    | Delimiter
+num                  | Identifier
+area                 | Identifier
+=                    | Operator
+length               | Identifier
 *                    | Operator
-,                    | Delimiter
-/                    | Operator
-,                    | Delimiter
-%                    | Operator
-,                    | Delimiter
-^                    | Operator
-,                    | Delimiter
-~                    | Operator
-==                   | Operator
-,                    | Delimiter
-!=                   | Operator
-,                    | Delimiter
-<                    | Operator
-,                    | Delimiter
->                    | Operator
-,                    | Delimiter
-<=                   | Operator
-,                    | Delimiter
->=                   | Operator
-and                  | Noise Word
-or                   | Identifier
-not                  | Identifier
-!                    | Operator
-||                   | Operator
-&&                   | Operator
-++                   | Operator
+width                | Identifier
+print                | Keyword
+(                    | Delimiter
+"The area of the rectangle is: " | String Literal
 +                    | Operator
---                   | Operator
-%=                   | Operator
-int                  | Keyword
-float                | Keyword
-char                 | Keyword
-str                  | Keyword
-bool                 | Keyword
-?                    | Error
-!                    | Operator
-!                    | Operator
-\n                   | Whitespace
-\                    | Error
-\                    | Error
-"Jeff"               | String Literal
-if                   | Keyword
-else                 | Keyword
-for                  | Keyword
-while                | Keyword
-and                  | Noise Word
-not                  | Identifier
+area                 | Identifier
+)                    | Delimiter
