@@ -1,5 +1,109 @@
 Lexeme               Token               
 ----------------------------------------
+if                   | Keyword
+elif                 | Keyword
+else                 | Keyword
+while                | Keyword
+for                  | Keyword
+continue             | Keyword
+break                | Keyword
+return               | Keyword
 int                  | Keyword
-12                   | Number
-ten                  | Identifier
+float                | Keyword
+bool                 | Keyword
+str                  | Keyword
+char                 | Keyword
+const                | Keyword
+def                  | Keyword
+true                 | Keyword
+false                | Keyword
+with                 | Keyword
+value                | Keyword
+chance               | Keyword
+print                | Keyword
+input                | Keyword
+pipeline             | Reserved Word
+using                | Reserved Word
+extension            | Reserved Word
+trait                | Reserved Word
+assert               | Reserved Word
+module               | Reserved Word
+delegate             | Reserved Word
+#------------------------- | Comment
+#Arithmetic Operators | Comment
++                    | Operator
+-                    | Operator
+*                    | Operator
+/                    | Operator
+~                    | Operator
+%                    | Operator
+^                    | Operator
+#------------------------- | Comment
+#Assignment Operators | Comment
+=                    | Operator
++=                   | Operator
+-=                   | Operator
+*                    | Operator
+-                    | Operator
+/=                   | Operator
+~=                   | Operator
+%=                   | Operator
+#------------------------- | Comment
+#Unary Operators     | Comment
++                    | Operator
+-                    | Operator
+++                   | Operator
+--                   | Operator
+#------------------------- | Comment
+#Logical Operators   | Comment
+!                    | Operator
+||                   | Operator
+&&                   | Operator
+#------------------------- | Comment
+#Relational Operators | Comment
+==                   | Operator
+!=                   | Operator
+<                    | Operator
+>                    | Operator
+<=                   | Operator
+>=                   | Operator
+#------------------------- | Comment
+;                    | Delimiter
+,                    | Delimiter
+.                    | Delimiter
+(                    | Delimiter
+)                    | Delimiter
+{                    | Delimiter
+}                    | Delimiter
+[                    | Delimiter
+]                    | Delimiter
+#                    | Comment
+\n                   | Whitespace
+\                    | Error
+"""
+
+"""             | Comment
+\n                   | Whitespace
+\                    | Error
+int                  | Keyword
+age                  | Identifier
+=                    | Operator
+21                   | Number
+bool                 | Keyword
+isOpen               | Identifier
+=                    | Operator
+1                    | Number
+char                 | Keyword
+middleInitial        | Identifier
+=                    | Operator
+"P"                  | String Literal
+float                | Keyword
+maxSalary            | Identifier
+=                    | Operator
+10                   | Number
+.                    | Delimiter
+98                   | Number
+str                  | Keyword
+firstName            | Identifier
+=                    | Operator
+"Mark"               | String Literal

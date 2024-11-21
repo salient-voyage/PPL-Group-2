@@ -2,7 +2,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#define MAX_TOKEN_SIZE 100
+#define MAX_TOKEN_SIZE 1000
 
 // Token Categories
 typedef enum
@@ -249,7 +249,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
             printToken(currentToken, file);
         }
 
-        // Handle identifiers, reserved words, and keywords
+        // Handle identifiers, reserved words, keywords, and noise
         else if (isalpha(currentChar))
         {
             j = 0;
@@ -440,7 +440,8 @@ int isFateFile(const char *filename)
 int main()
 {
     FILE *file;
-    char *filename = "FateScript Files/sample.fate";
+    char *filename = "FateScript Files/complete.fate";
+    // char *filename = "FateScript Files/sample.fate";
     // char *filename = "FateScript Files/sample.txt";
     // char *filename = "FateScript Files/delimitersCommentsWhitespace.fate";
     // char *filename = "FateScript Files/keywordsNoiseWordsReservedWords.fate";

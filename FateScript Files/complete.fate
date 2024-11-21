@@ -1,0 +1,87 @@
+if 
+elif 
+else 
+while 
+for 
+continue 
+break
+return
+int 
+float
+bool
+str
+char
+const 
+def
+true
+false
+with 
+value
+chance
+print
+input
+pipeline
+using
+extension
+trait
+assert
+module
+delegate
+
+#-------------------------
+#Arithmetic Operators
++
+-
+*
+/
+~
+%
+^
+#-------------------------
+#Assignment Operators
+=
++=
+-=
+*-
+/=
+~=
+%=
+#-------------------------
+#Unary Operators
++
+-
+++
+--
+#-------------------------
+#Logical Operators
+!
+||
+&&
+#-------------------------
+#Relational Operators
+==
+!=
+<
+>
+<=
+>=
+#-------------------------
+
+
+;
+,
+.
+()
+{}
+[]
+#
+"""
+
+"""
+\n
+
+int age = 21
+bool isOpen = 1
+char middleInitial = "P"
+float maxSalary = 10.98
+str firstName = "Mark"
