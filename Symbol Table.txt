@@ -1,35 +1,5 @@
 Lexeme               Token               
 ----------------------------------------
-if                   | Keyword
-elif                 | Keyword
-else                 | Keyword
-while                | Keyword
-for                  | Keyword
-continue             | Keyword
-break                | Keyword
-return               | Keyword
-int                  | Keyword
-float                | Keyword
-bool                 | Keyword
-str                  | Keyword
-char                 | Keyword
-const                | Keyword
-def                  | Keyword
-true                 | Keyword
-false                | Keyword
-with                 | Keyword
-value                | Keyword
-chance               | Keyword
-print                | Keyword
-input                | Keyword
-pipeline             | Reserved Word
-using                | Reserved Word
-extension            | Reserved Word
-trait                | Reserved Word
-assert               | Reserved Word
-module               | Reserved Word
-delegate             | Reserved Word
-#------------------------- | Comment
 #Arithmetic Operators | Comment
 +                    | Operator
 -                    | Operator
@@ -68,6 +38,38 @@ delegate             | Reserved Word
 <=                   | Operator
 >=                   | Operator
 #------------------------- | Comment
+# Keywords, Reserved Words and Noise Words | Comment
+if                   | Keyword
+elif                 | Keyword
+else                 | Keyword
+while                | Keyword
+for                  | Keyword
+continue             | Keyword
+break                | Keyword
+return               | Keyword
+int                  | Keyword
+float                | Keyword
+bool                 | Keyword
+str                  | Keyword
+char                 | Keyword
+const                | Keyword
+def                  | Keyword
+true                 | Keyword
+false                | Keyword
+with                 | Keyword
+value                | Keyword
+chance               | Keyword
+print                | Keyword
+input                | Keyword
+# Reserved Words     | Comment
+pipeline             | Reserved Word
+using                | Reserved Word
+extension            | Reserved Word
+trait                | Reserved Word
+assert               | Reserved Word
+module               | Reserved Word
+delegate             | Reserved Word
+# Delimiters and Comments | Comment
 ;                    | Delimiter
 ,                    | Delimiter
 .                    | Delimiter
@@ -78,13 +80,13 @@ delegate             | Reserved Word
 [                    | Delimiter
 ]                    | Delimiter
 #                    | Comment
-\n                   | Whitespace
-\                    | Error
 """
 
 """             | Comment
 \n                   | Whitespace
 \                    | Error
+#------------------------- | Comment
+# Sample variables   | Comment
 int                  | Keyword
 age                  | Identifier
 =                    | Operator

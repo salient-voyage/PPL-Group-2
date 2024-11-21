@@ -1,34 +1,3 @@
-if 
-elif 
-else 
-while 
-for 
-continue 
-break
-return
-int 
-float
-bool
-str
-char
-const 
-def
-true
-false
-with 
-value
-chance
-print
-input
-pipeline
-using
-extension
-trait
-assert
-module
-delegate
-
-#-------------------------
 #Arithmetic Operators
 +
 -
@@ -67,7 +36,39 @@ delegate
 >=
 #-------------------------
 
+# Keywords, Reserved Words and Noise Words
+if 
+elif 
+else 
+while 
+for 
+continue 
+break
+return
+int 
+float
+bool
+str
+char
+const 
+def
+true
+false
+with 
+value
+chance
+print
+input
+# Reserved Words
+pipeline
+using
+extension
+trait
+assert
+module
+delegate
 
+# Delimiters and Comments
 ;
 ,
 .
@@ -80,6 +81,8 @@ delegate
 """
 \n
 
+#-------------------------
+# Sample variables
 int age = 21
 bool isOpen = 1
 char middleInitial = "P"
