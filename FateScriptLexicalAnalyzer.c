@@ -216,7 +216,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
             i++;
         }
         // Handle delimiters
-        else if (strchr(";,(){}", currentChar))
+        else if (strchr(";,(){}.'\"'", currentChar))
         {
             currentToken.value[0] = currentChar;
             currentToken.value[1] = '\0';
