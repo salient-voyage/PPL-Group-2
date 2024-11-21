@@ -10,3 +10,45 @@ Keyword: const
 Keyword: def
 Keyword: print
 Keyword: input
+Delimiter: .
+Delimiter: {
+Delimiter: }
+Delimiter: [
+Delimiter: ]
+Delimiter: (
+Delimiter: )
+Delimiter: .
+Delimiter: ;
+Error: Unknown token :
+Delimiter: '
+Delimiter: "
+Delimiter: {
+Delimiter: "
+Reserved Word: pipeline
+Delimiter: "
+Delimiter: ,
+Delimiter: "
+Reserved Word: using
+Delimiter: "
+Delimiter: ,
+Delimiter: "
+Reserved Word: extension
+Delimiter: "
+Delimiter: ,
+Delimiter: "
+Reserved Word: trait
+Delimiter: "
+Delimiter: ,
+Delimiter: "
+Reserved Word: assert
+Delimiter: "
+Delimiter: ,
+Delimiter: "
+Reserved Word: module
+Delimiter: "
+Delimiter: ,
+Delimiter: "
+Reserved Word: delegate
+Delimiter: "
+Delimiter: }
+Delimiter: ;

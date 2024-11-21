@@ -32,10 +32,10 @@ int isKeyword(const char *str)
 }
 
 // Reserved words list
-const char *reservedWords[] = {"async"};
+const char *reservedWords[] = {"pipeline", "using", "extension", "trait", "assert", "module", "delegate"};
 int isReservedWord(const char *str)
 {
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 7; i++)
     {
         if (strcmp(str, reservedWords[i]) == 0)
         {
@@ -216,7 +216,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
             i++;
         }
         // Handle delimiters
-        else if (strchr(";,(){}.'\"'", currentChar))
+        else if (strchr(";,(){}[].'\"'", currentChar))
         {
             currentToken.value[0] = currentChar;
             currentToken.value[1] = '\0';
