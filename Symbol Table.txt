@@ -14,7 +14,7 @@ print                | Keyword
 input                | Keyword
 with                 | Keyword
 <                    | Operator
-value                | Identifier
+value                | Keyword
 >                    | Operator
 %                    | Operator
 chance               | Keyword
@@ -70,3 +70,4 @@ for                  | Keyword
 while                | Keyword
 and                  | Noise Word
 not                  | Identifier
+""" ""               | Comment
