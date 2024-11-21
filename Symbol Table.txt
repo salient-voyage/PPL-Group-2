@@ -1,0 +1,29 @@
+Lexeme               Token               
+----------------------------------------
+#This program calculates the area of a rectangle | Comment
+num                  | Identifier
+length               | Identifier
+=                    | Operator
+input                | Keyword
+(                    | Delimiter
+"Enter the length of the rectangle: " | String Literal
+)                    | Delimiter
+num                  | Identifier
+width                | Identifier
+=                    | Operator
+input                | Keyword
+(                    | Delimiter
+"Enter the width of the rectangle: " | String Literal
+)                    | Delimiter
+num                  | Identifier
+area                 | Identifier
+=                    | Operator
+length               | Identifier
+*                    | Operator
+width                | Identifier
+print                | Keyword
+(                    | Delimiter
+"The area of the rectangle is: " | String Literal
++                    | Operator
+area                 | Identifier
+)                    | Delimiter
