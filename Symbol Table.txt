@@ -1,52 +1,62 @@
-Keyword: int
-Identifier: age
-Operator: =
-Number: 98
-Delimiter: ;
-Keyword: if
-Keyword: else
-Keyword: elif
-Keyword: const
-Keyword: def
-Keyword: print
-Keyword: input
-Keyword: with
-Operator: <
-Identifier: value
-Operator: >
-Operator: %
-Keyword: chance
-Operator: +
-Delimiter: ,
-Operator: -
-Delimiter: ,
-Operator: *
-Delimiter: ,
-Operator: /
-Delimiter: ,
-Operator: %
-Delimiter: ,
-Operator: ^
-Delimiter: ,
-Operator: ~
-Operator: ==
-Delimiter: ,
-Operator: !=
-Delimiter: ,
-Operator: <
-Delimiter: ,
-Operator: >
-Delimiter: ,
-Operator: <=
-Delimiter: ,
-Operator: >=
-Identifier: and
-Identifier: or
-Identifier: not
-Operator: !
-Operator: ||
-Operator: &&
-Operator: ++
-Operator: +
-Operator: --
-Operator: %=
+Lexeme               Token               
+----------------------------------------
+int                  | Keyword
+age                  | Identifier
+=                    | Operator
+98                   | Number
+;                    | Delimiter
+if                   | Keyword
+else                 | Keyword
+elif                 | Keyword
+const                | Keyword
+def                  | Keyword
+print                | Keyword
+input                | Keyword
+with                 | Keyword
+<                    | Operator
+value                | Identifier
+>                    | Operator
+%                    | Operator
+chance               | Keyword
++                    | Operator
+,                    | Delimiter
+-                    | Operator
+,                    | Delimiter
+*                    | Operator
+,                    | Delimiter
+/                    | Operator
+,                    | Delimiter
+%                    | Operator
+,                    | Delimiter
+^                    | Operator
+,                    | Delimiter
+~                    | Operator
+==                   | Operator
+,                    | Delimiter
+!=                   | Operator
+,                    | Delimiter
+<                    | Operator
+,                    | Delimiter
+>                    | Operator
+,                    | Delimiter
+<=                   | Operator
+,                    | Delimiter
+>=                   | Operator
+and                  | Identifier
+or                   | Identifier
+not                  | Identifier
+!                    | Operator
+||                   | Operator
+&&                   | Operator
+++                   | Operator
++                    | Operator
+--                   | Operator
+%=                   | Operator
+int                  | Keyword
+float                | Keyword
+char                 | Keyword
+str                  | Keyword
+bool                 | Keyword
+?                    | Error
+!                    | Operator
+!                    | Operator

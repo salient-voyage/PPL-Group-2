@@ -84,33 +84,37 @@ void printToken(Token token, FILE *file)
         printf("Error: Unknown token %s\n", token.value);
     }
 
-    // Write to the file
+    // Write to the file in two-column format: Lexeme | Token
+    const char *tokenTypeStr;
     switch (token.type)
     {
     case KEYWORD:
-        fprintf(file, "Keyword: %s\n", token.value);
+        tokenTypeStr = "Keyword";
         break;
     case RESERVED_WORDS:
-        fprintf(file, "Reserved Word: %s\n", token.value);
+        tokenTypeStr = "Reserved Word";
         break;
     case IDENTIFIER:
-        fprintf(file, "Identifier: %s\n", token.value);
+        tokenTypeStr = "Identifier";
         break;
     case NUMBER:
-        fprintf(file, "Number: %s\n", token.value);
+        tokenTypeStr = "Number";
         break;
     case OPERATOR:
-        fprintf(file, "Operator: %s\n", token.value);
+        tokenTypeStr = "Operator";
         break;
     case DELIMITER:
-        fprintf(file, "Delimiter: %s\n", token.value);
+        tokenTypeStr = "Delimiter";
         break;
     case COMMENT:
-        fprintf(file, "Comment: %s\n", token.value);
+        tokenTypeStr = "Comment";
         break;
     default:
-        fprintf(file, "Error: Unknown token %s\n", token.value);
+        tokenTypeStr = "Error";
     }
+
+    // Print lexeme and token type in a formatted way to the file
+    fprintf(file, "%-20s | %s\n", token.value, tokenTypeStr);
 }
 
 // Lexical analyzer function
@@ -134,7 +138,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
         {
             currentToken.type = COMMENT;
             j = 0;
-            currentToken.value[j++] = currentChar; // Store the '#' character
+            currentToken.value[j++] = currentChar;
 
             // Collect all characters until the end of the line
             i++;
@@ -145,6 +149,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
             currentToken.value[j] = '\0';
             printToken(currentToken, file);
         }
+
         // Handle multi-line comments (starting with """ and ending with """)
         else if (input[i] == '"' && input[i + 1] == '"' && input[i + 2] == '"')
         {
@@ -376,6 +381,10 @@ int main()
         perror("Error opening file");
         return 1;
     }
+
+    // Write headers to the symbol table
+    fprintf(file, "%-20s %-20s\n", "Lexeme", "Token");
+    fprintf(file, "----------------------------------------\n");
 
     // Open the source .fate file
     FILE *sourceFile = fopen(filename, "r");
