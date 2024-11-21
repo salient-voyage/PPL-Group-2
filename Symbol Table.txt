@@ -10,45 +10,43 @@ Keyword: const
 Keyword: def
 Keyword: print
 Keyword: input
-Delimiter: .
-Delimiter: {
-Delimiter: }
-Delimiter: [
-Delimiter: ]
-Delimiter: (
-Delimiter: )
-Delimiter: .
-Delimiter: ;
-Error: Unknown token :
-Delimiter: '
-Delimiter: "
-Delimiter: {
-Delimiter: "
-Reserved Word: pipeline
-Delimiter: "
+Keyword: with
+Operator: <
+Identifier: value
+Operator: >
+Operator: %
+Keyword: chance
+Operator: +
 Delimiter: ,
-Delimiter: "
-Reserved Word: using
-Delimiter: "
+Operator: -
 Delimiter: ,
-Delimiter: "
-Reserved Word: extension
-Delimiter: "
+Operator: *
 Delimiter: ,
-Delimiter: "
-Reserved Word: trait
-Delimiter: "
+Operator: /
 Delimiter: ,
-Delimiter: "
-Reserved Word: assert
-Delimiter: "
+Operator: %
 Delimiter: ,
-Delimiter: "
-Reserved Word: module
-Delimiter: "
+Operator: ^
 Delimiter: ,
-Delimiter: "
-Reserved Word: delegate
-Delimiter: "
-Delimiter: }
-Delimiter: ;
+Operator: ~
+Operator: ==
+Delimiter: ,
+Operator: !=
+Delimiter: ,
+Operator: <
+Delimiter: ,
+Operator: >
+Delimiter: ,
+Operator: <=
+Delimiter: ,
+Operator: >=
+Identifier: and
+Identifier: or
+Identifier: not
+Operator: !
+Operator: ||
+Operator: &&
+Operator: ++
+Operator: +
+Operator: --
+Operator: %=

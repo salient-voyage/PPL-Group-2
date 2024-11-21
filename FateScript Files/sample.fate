@@ -2,6 +2,14 @@ int age = 98;
 
 if else elif const def print input
 
-. { } [ ] () . ; : ' "
+with <value>% chance
 
-{"pipeline", "using", "extension", "trait", "assert", "module", "delegate"};
++, -, *, /, %, ^, ~
+
+==, !=, <, >, <=, >=
+
+and or not
+
+! || &&
+
++++ -- %=
