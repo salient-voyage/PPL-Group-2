@@ -1,3 +1,15 @@
 int age = 98;
 
 if else elif const def print input
+
+with <value>% chance
+
++, -, *, /, %, ^, ~
+
+==, !=, <, >, <=, >=
+
+and or not
+
+! || &&
+
++++ -- %=
