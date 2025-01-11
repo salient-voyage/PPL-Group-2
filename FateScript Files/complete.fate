@@ -64,7 +64,8 @@ output
 using
 extension
 module
-delegate
+true
+false
 # Noise Words
 extern
 auto
@@ -84,8 +85,8 @@ auto
 
 #-------------------------
 # Sample variables
-int age = 21
-bool isOpen = true
-char middleInitial = 'P'
-float maxSalary = 10.98
-str firstName = "Mark"
+int age = 21;
+bool isOpen = true;
+char middleInitial = 'P';
+float maxSalary = 10.98;
+str firstName = "Mark";
