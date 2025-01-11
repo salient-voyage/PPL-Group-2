@@ -59,11 +59,15 @@ value
 chance
 print
 input
+output
 # Reserved Words
 using
 extension
 module
 delegate
+# Noise Words
+extern
+auto
 
 # Delimiters and Comments
 ;
@@ -81,7 +85,7 @@ delegate
 #-------------------------
 # Sample variables
 int age = 21
-bool isOpen = 1
-char middleInitial = "P"
+bool isOpen = true
+char middleInitial = 'P'
 float maxSalary = 10.98
 str firstName = "Mark"
