@@ -1,33 +1,3 @@
-if 
-elif 
-else 
-while 
-for 
-continue 
-break
-return
-int 
-float
-bool
-str
-char
-const 
-def
-true
-false
-with 
-value
-chance
-print
-input
-pipeline
-using
-extension
-trait
-assert
-module
-delegate
-
 #-------------------------
 #Arithmetic Operators
 +
@@ -67,7 +37,6 @@ delegate
 >=
 #-------------------------
 
-<<<<<<< Updated upstream
 =======
 # Keywords, Reserved Words and Noise Words
 if 
@@ -94,16 +63,9 @@ input
 using
 extension
 module
-true
-false
-# Noise Words
-extern
-auto
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+delegate
 
+# Delimiters and Comments
 ;
 ,
 .
@@ -116,25 +78,10 @@ auto
 """
 \n
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+#-------------------------
+# Sample variables
 int age = 21
 bool isOpen = 1
 char middleInitial = "P"
 float maxSalary = 10.98
 str firstName = "Mark"
-=======
-=======
->>>>>>> Stashed changes
-#-------------------------
-# Sample variables
-int age = 21;
-bool isOpen = true;
-char middleInitial = 'P';
-float maxSalary = 10.98;
-<<<<<<< Updated upstream
-str firstName = "Mark";
->>>>>>> Stashed changes
-=======
-str firstName = "Mark";
->>>>>>> Stashed changes
