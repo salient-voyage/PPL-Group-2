@@ -99,6 +99,9 @@ false
 # Noise Words
 extern
 auto
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 ;
@@ -114,17 +117,24 @@ auto
 \n
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 int age = 21
 bool isOpen = 1
 char middleInitial = "P"
 float maxSalary = 10.98
 str firstName = "Mark"
 =======
+=======
+>>>>>>> Stashed changes
 #-------------------------
 # Sample variables
 int age = 21;
 bool isOpen = true;
 char middleInitial = 'P';
 float maxSalary = 10.98;
+<<<<<<< Updated upstream
+str firstName = "Mark";
+>>>>>>> Stashed changes
+=======
 str firstName = "Mark";
 >>>>>>> Stashed changes
