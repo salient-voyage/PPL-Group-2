@@ -67,6 +67,39 @@ delegate
 >=
 #-------------------------
 
+<<<<<<< Updated upstream
+=======
+# Keywords, Reserved Words and Noise Words
+if 
+elif 
+else 
+while 
+for 
+continue 
+break
+return
+int 
+float
+bool
+str
+char
+const 
+def
+with 
+value
+chance
+print
+input
+# Reserved Words
+using
+extension
+module
+true
+false
+# Noise Words
+extern
+auto
+>>>>>>> Stashed changes
 
 ;
 ,
@@ -80,8 +113,18 @@ delegate
 """
 \n
 
+<<<<<<< Updated upstream
 int age = 21
 bool isOpen = 1
 char middleInitial = "P"
 float maxSalary = 10.98
 str firstName = "Mark"
+=======
+#-------------------------
+# Sample variables
+int age = 21;
+bool isOpen = true;
+char middleInitial = 'P';
+float maxSalary = 10.98;
+str firstName = "Mark";
+>>>>>>> Stashed changes

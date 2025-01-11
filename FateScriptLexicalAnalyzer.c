@@ -21,10 +21,10 @@ typedef enum
 } TokenType;
 
 // Keywords list
-const char *keywords[] = {"int", "float", "bool", "str", "char", "if", "else", "return", "while", "elif", "for", "continue", "break", "const", "def", "true", "false", "print", "input", "with", "chance", "value"};
+const char *keywords[] = {"int", "float", "bool", "str", "char", "if", "else", "return", "while", "elif", "for", "continue", "break", "const", "def", "print", "input", "with", "chance", "value"};
 int isKeyword(const char *str)
 {
-    for (int i = 0; i < 22; i++)
+    for (int i = 0; i < 20; i++)
     {
         if (strcmp(str, keywords[i]) == 0)
         {
@@ -35,10 +35,10 @@ int isKeyword(const char *str)
 }
 
 // Reserved words
-const char *reservedWords[] = {"pipeline", "using", "extension", "trait", "assert", "module", "delegate"};
+const char *reservedWords[] = {"using", "extension", "module", "true", "false"};
 int isReservedWord(const char *str)
 {
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 5; i++)
     {
         if (strcmp(str, reservedWords[i]) == 0)
         {
@@ -49,10 +49,10 @@ int isReservedWord(const char *str)
 }
 
 // Noise words
-const char *noiseWords[] = {"if", "else", "for", "while"};
+const char *noiseWords[] = {"extern", "auto"};
 int isNoiseWord(const char *str)
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 2; i++)
     {
         if (strcmp(str, noiseWords[i]) == 0)
         {
