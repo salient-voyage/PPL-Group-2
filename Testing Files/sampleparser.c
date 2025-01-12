@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "lexerheader.h"
 
+#define BUFFER_SIZE 1024
+
 // Function declarations for parsing individual components of a declaration
 void parse_declaration(char *input, int *index);
 void parse_type(char *input, int *index);
@@ -116,27 +118,49 @@ void parse_semicolon(char *input, int *index)
 
 int main()
 {
-    // The input string to be lexed and parsed
-    char input[] = "int age = 13;"; // This will cause an error since "jeff" is not a number
-    int index = 0;                  // Index to track position in the input string
+    // File-related variables
+    const char *filename = "sample.fate";
+    FILE *file = fopen(filename, "r");
+    if (file == NULL)
+    {
+        printf("Error: Could not open file '%s'\n", filename);
+        return 1;
+    }
 
-    // Start lexing to get the first token
+    // Buffer to store the file content
+    char input[BUFFER_SIZE];
+    size_t bytesRead = fread(input, sizeof(char), BUFFER_SIZE - 1, file);
+    if (bytesRead == 0 && ferror(file))
+    {
+        printf("Error: Could not read file '%s'\n", filename);
+        fclose(file);
+        return 1;
+    }
+
+    // Null-terminate the buffer to make it a valid string
+    input[bytesRead] = '\0';
+
+    // Close the file as we no longer need it
+    fclose(file);
+
+    // Initialize the lexer and parser
+    int index = 0;
     printf("Lexer: Starting tokenization process.\n");
     next_token(input, &index);
 
     // Start parsing the declaration
     printf("Parser: Starting parsing process.\n");
     parse_declaration(input, &index);
-
-    // Check if there are any unexpected tokens remaining after parsing
+ 
+    // Check for unexpected tokens after parsing
     if (current_token.type != T_END)
     {
         printf("Error: Unexpected token '%s'\n", current_token.value);
         return 1;
     }
 
-    // Print success message if parsing completed without errors
-    printf("Parser: Declaration parsed successfully: %s\n", input);
+    // Print success message
+    printf("Parser: Declaration parsed successfully from file: %s\n", filename);
     return 0;
 }
 
