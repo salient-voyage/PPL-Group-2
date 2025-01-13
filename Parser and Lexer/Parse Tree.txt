@@ -1,0 +1,17 @@
+Parser: Starting parsing process.
+Parser: Type token ('int') processed.
+Parser: Identifier token ('age') processed.
+Parser: Assignment token ('=') processed.
+Parser: Number token ('21') processed.
+Parser: Semicolon token (';') processed.
+Parser: Type token ('int') processed.
+Parser: Identifier token ('height') processed.
+Parser: Assignment token ('=') processed.
+Parser: Number token ('171') processed.
+Parser: Semicolon token (';') processed.
+Parser: Type token ('int') processed.
+Parser: Identifier token ('price') processed.
+Parser: Assignment token ('=') processed.
+Parser: Number token ('191') processed.
+Parser: Semicolon token (';') processed.
+Parser: Declarations parsed successfully from file: sample.fate

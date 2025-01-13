@@ -1,3 +1,4 @@
+#-------------------------
 #Arithmetic Operators
 +
 -
@@ -36,6 +37,7 @@
 >=
 #-------------------------
 
+=======
 # Keywords, Reserved Words and Noise Words
 if 
 elif 
@@ -52,21 +54,21 @@ str
 char
 const 
 def
-true
-false
 with 
 value
 chance
 print
 input
+output
 # Reserved Words
-pipeline
 using
 extension
-trait
-assert
 module
-delegate
+true
+false
+# Noise Words
+extern
+auto
 
 # Delimiters and Comments
 ;
@@ -83,8 +85,8 @@ delegate
 
 #-------------------------
 # Sample variables
-int age = 21
-bool isOpen = 1
-char middleInitial = "P"
-float maxSalary = 10.98
-str firstName = "Mark"
+int age = 21;
+bool isOpen = true;
+char middleInitial = 'P';
+float maxSalary = 10.98;
+str firstName = "Mark";

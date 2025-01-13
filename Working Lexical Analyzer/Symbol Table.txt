@@ -1,5 +1,6 @@
 Lexeme               Token               
 ----------------------------------------
+#------------------------- | Comment
 #Arithmetic Operators | Comment
 +                    | Operator
 -                    | Operator
@@ -38,6 +39,10 @@ Lexeme               Token
 <=                   | Operator
 >=                   | Operator
 #------------------------- | Comment
+==                   | Operator
+==                   | Operator
+==                   | Operator
+=                    | Operator
 # Keywords, Reserved Words and Noise Words | Comment
 if                   | Keyword
 elif                 | Keyword
@@ -54,21 +59,21 @@ str                  | Keyword
 char                 | Keyword
 const                | Keyword
 def                  | Keyword
-true                 | Keyword
-false                | Keyword
 with                 | Keyword
 value                | Keyword
 chance               | Keyword
 print                | Keyword
 input                | Keyword
+output               | Identifier
 # Reserved Words     | Comment
-pipeline             | Reserved Word
 using                | Reserved Word
 extension            | Reserved Word
-trait                | Reserved Word
-assert               | Reserved Word
 module               | Reserved Word
-delegate             | Reserved Word
+true                 | Reserved Word
+false                | Reserved Word
+# Noise Words        | Comment
+extern               | Noise Word
+auto                 | Noise Word
 # Delimiters and Comments | Comment
 ;                    | Delimiter
 ,                    | Delimiter
@@ -91,21 +96,28 @@ int                  | Keyword
 age                  | Identifier
 =                    | Operator
 21                   | Number
+;                    | Delimiter
 bool                 | Keyword
 isOpen               | Identifier
 =                    | Operator
-1                    | Number
+true                 | Reserved Word
+;                    | Delimiter
 char                 | Keyword
 middleInitial        | Identifier
 =                    | Operator
-"P"                  | String Literal
+'                    | Delimiter
+P                    | Identifier
+'                    | Delimiter
+;                    | Delimiter
 float                | Keyword
 maxSalary            | Identifier
 =                    | Operator
 10                   | Number
 .                    | Delimiter
 98                   | Number
+;                    | Delimiter
 str                  | Keyword
 firstName            | Identifier
 =                    | Operator
 "Mark"               | String Literal
+;                    | Delimiter
