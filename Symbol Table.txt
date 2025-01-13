@@ -1,7 +1,0 @@
-Lexeme               Token               
-----------------------------------------
-int                  | Keyword
-age                  | Identifier
-=                    | Operator
-21                   | Number
-;                    | Delimiter

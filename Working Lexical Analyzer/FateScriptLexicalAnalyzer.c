@@ -440,7 +440,7 @@ int isFateFile(const char *filename)
 int main()
 {
     FILE *file;
-    char *filename = "FateScript Files/sample.fate";
+    char *filename = "../FateScript Files/complete.fate";
     // char *filename = "FateScript Files/sample.fate";
     // char *filename = "FateScript Files/sample.txt";
     // char *filename = "FateScript Files/delimitersCommentsWhitespace.fate";

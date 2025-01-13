@@ -1,8 +1,6 @@
 #ifndef LEXER_H
 #define LEXER_H
 
-#define MAX_TOKEN_SIZE 1000
-
 // Token Categories
 typedef enum
 {
@@ -16,14 +14,18 @@ typedef enum
     COMMENT,
     WHITESPACE,
     STRING_LITERALS,
-    ERROR
+    ERROR,
+    END
 } TokenType;
 
-// Token structure
 typedef struct
 {
     TokenType type;
-    char value[MAX_TOKEN_SIZE];
+    char value[50];
 } Token;
+
+extern Token current_token;
+
+void next_token(char *input, int *index);
 
 #endif // LEXER_H

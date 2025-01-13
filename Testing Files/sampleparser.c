@@ -164,5 +164,6 @@ int main()
     return 0;
 }
 
+// Move to "Testing Files" Folder Command: cd "Testing Files"
 // Compile command: gcc samplelexer.c sampleparser.c -o parser
 // run executable: ./parser

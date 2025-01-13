@@ -1,0 +1,17 @@
+Lexer: Starting tokenization process.
+Lexeme               | Token     
+int                  | Keyword   
+age                  | Identifier
+=                    | Operator  
+21                   | Number    
+;                    | Delimiter 
+int                  | Keyword   
+height               | Identifier
+=                    | Operator  
+171                  | Number    
+;                    | Delimiter 
+int                  | Keyword   
+price                | Identifier
+=                    | Operator  
+191                  | Number    
+;                    | Delimiter 
