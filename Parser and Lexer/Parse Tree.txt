@@ -3,10 +3,16 @@ Parser: Starting parsing process.
 Statement 1 (Line 1): 
 Statement: Declaration
 	DATA TYPE: ('int')
-	IDENTIFIER: ('cost')
+	IDENTIFIER: ('value')
 	SEMICOLON (';')
 
 Statement 2 (Line 2): 
+Statement: Declaration
+	DATA TYPE: ('int')
+	IDENTIFIER: ('cost')
+	SEMICOLON (';')
+
+Statement 3 (Line 3): 
 Statement: Declaration
 	DATA TYPE: ('int')
 	IDENTIFIER: ('age')
@@ -14,7 +20,7 @@ Statement: Declaration
 	IDENTIFIER: ('height')
 	SEMICOLON (';')
 
-Statement 3 (Line 3): 
+Statement 4 (Line 4): 
 Statement: Assignment
 	IDENTIFIER: ('cost')
 	OPERATOR: =
@@ -22,7 +28,7 @@ Statement: Assignment
 		NUMBER: 89
 	SEMICOLON (';')
 
-Statement 4 (Line 4): 
+Statement 5 (Line 5): 
 Statement: Assignment
 	IDENTIFIER: ('additional')
 	OPERATOR: =
@@ -30,7 +36,7 @@ Statement: Assignment
 		IDENTIFIER: tax
 	SEMICOLON (';')
 
-Statement 5 (Line 5): 
+Statement 6 (Line 6): 
 Statement: Assignment
 	IDENTIFIER: ('total')
 	OPERATOR: =
@@ -42,7 +48,7 @@ Statement: Assignment
 		NUMBER: 5
 	SEMICOLON (';')
 
-Statement 6 (Line 6): 
+Statement 7 (Line 7): 
 Statement: Output
 	OUTPUT: ('print')
 	OPEN_PARENTHESIS ('(')
@@ -50,7 +56,7 @@ Statement: Output
 	CLOSE_PARENTHESIS (')')
 	SEMICOLON (';')
 
-Statement 7 (Line 7): 
+Statement 8 (Line 8): 
 Statement: Output
 	OUTPUT: ('print')
 	OPEN_PARENTHESIS ('(')
@@ -60,7 +66,7 @@ Statement: Output
 	CLOSE_PARENTHESIS (')')
 	SEMICOLON (';')
 
-Statement 8 (Line 8): 
+Statement 9 (Line 9): 
 Statement: Output
 	OUTPUT: ('print')
 	OPEN_PARENTHESIS ('(')
@@ -72,4 +78,4 @@ Statement: Output
 	CLOSE_PARENTHESIS (')')
 	SEMICOLON (';')
 
-Parser: Parsing successful: sample.fate
+Parser: Parsing successful: ../FateScript Files/sample.fate

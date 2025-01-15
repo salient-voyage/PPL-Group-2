@@ -1,6 +1,9 @@
 Lexer: Starting tokenization process.
 Lexeme               | Token     
 int                  | Keyword   
+value                | Identifier
+;                    | Delimiter 
+int                  | Keyword   
 cost                 | Identifier
 ;                    | Delimiter 
 int                  | Keyword   

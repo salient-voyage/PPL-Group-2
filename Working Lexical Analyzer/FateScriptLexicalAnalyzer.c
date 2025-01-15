@@ -16,7 +16,7 @@ typedef enum
     DELIMITER,
     COMMENT,
     WHITESPACE,
-    STRING_LITERALS,
+    STRING_LITERAL,
     CHARACTER,
     ERROR,
     DATA_TYPE
@@ -65,14 +65,14 @@ void printToken(Token token, FILE *file)
     case WHITESPACE:
         printf("Whitespace: %s\n", token.value);
         break;
-    case STRING_LITERALS:
+    case STRING_LITERAL:
         printf("String Literal: %s\n", token.value);
         break;
     case CHARACTER:
         printf("Character: %s\n", token.value);
         break;
     case DATA_TYPE:
-        printf("Data Type: %s\n", token.value);
+        printf("DATA_TYPE: %s\n", token.value);
         break;
     default:
         printf("Error: Unknown token %s\n", token.value);
@@ -84,46 +84,46 @@ void printToken(Token token, FILE *file)
     switch (token.type)
     {
     case KEYWORD:
-        tokenTypeStr = "Keyword";
+        tokenTypeStr = "KEYWORD";
         break;
     case RESERVED_WORDS:
-        tokenTypeStr = "Reserved Word";
+        tokenTypeStr = "RESERVED_WORDS";
         break;
     case NOISE_WORDS:
-        tokenTypeStr = "Noise Word";
+        tokenTypeStr = "NOISE_WORDS";
         break;
     case IDENTIFIER:
-        tokenTypeStr = "Identifier";
+        tokenTypeStr = "IDENTIFIER";
         break;
     case NUMBER:
-        tokenTypeStr = "Number";
+        tokenTypeStr = "NUMBER";
         break;
     case OPERATOR:
-        tokenTypeStr = "Operator";
+        tokenTypeStr = "OPERATOR";
         break;
     case DELIMITER:
-        tokenTypeStr = "Delimiter";
+        tokenTypeStr = "DELIMITER";
         break;
     case COMMENT:
-        tokenTypeStr = "Comment";
+        tokenTypeStr = "COMMENT";
         break;
     case WHITESPACE:
-        tokenTypeStr = "Whitespace";
+        tokenTypeStr = "WHITESPACE";
         break;
-    case STRING_LITERALS:
-        tokenTypeStr = "String Literal";
+    case STRING_LITERAL:
+        tokenTypeStr = "STRING_LITERAL";
         break;
     case CHARACTER:
-        tokenTypeStr = "Character";
+        tokenTypeStr = "CHARACTER";
         break;
     case DATA_TYPE:
-        tokenTypeStr = "Data Type";
+        tokenTypeStr = "DATA_TYPE";
         break;
     default:
-        tokenTypeStr = "Error";
+        tokenTypeStr = "ERROR";
     }
 
-    fprintf(file, "%-20s | %-15s | %-10d\n", token.value, tokenTypeStr, token.line_number);
+    fprintf(file, "%-20s %-15s %-10d\n", token.value, tokenTypeStr, token.line_number);
 }
 
 // Lexical analyzer function
@@ -133,6 +133,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
     char currentChar;
     Token currentToken;
     currentToken.line_number = line_number;
+    printf("%d", currentToken.line_number);
 
     while ((currentChar = input[i]) != '\0')
     {
@@ -198,7 +199,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
         // Handle string literals (quoted strings)
         else if (currentChar == '"')
         {
-            currentToken.type = STRING_LITERALS;
+            currentToken.type = STRING_LITERAL;
             j = 0;
             currentToken.value[j++] = currentChar;
 
@@ -753,7 +754,8 @@ void lexicalAnalyzer(const char *input, FILE *file)
             printToken(currentToken, file);
             i++;
         }
-        printf("Line Number: %d\n", line_number);
+        currentToken.line_number = line_number;
+        printf("Line Number: %d ", line_number);
     }
 }
 
@@ -768,13 +770,6 @@ int main()
 {
     FILE *file;
     char *filename = "../FateScript Files/sample.fate";
-    // char *filename = "FateScript Files/sample.fate";
-    // char *filename = "FateScript Files/sample.txt";
-    // char *filename = "FateScript Files/delimitersCommentsWhitespace.fate";
-    // char *filename = "FateScript Files/keywordsNoiseWordsReservedWords.fate";
-    // char *filename = "FateScript Files/operators.fate";
-    // char *filename = "FateScript Files/sampleProgram1.fate";
-    // char *filename = "FateScript Files/sampleProgram2.fate";
     char input[1000];
     int i = 0;
 
@@ -794,8 +789,8 @@ int main()
     }
 
     // Write headers to the symbol table
-    fprintf(file, "%-20s %-20s %-20s\n", "Lexeme", "Token", "Line Number");
-    fprintf(file, "-----------------------------------------------------\n");
+    // fprintf(file, "%-20s %-20s %-20s\n", "Lexeme", "Token", "Line Number");
+    // fprintf(file, "-----------------------------------------------------\n");
 
     // Open the source .fate file
     FILE *sourceFile = fopen(filename, "r");

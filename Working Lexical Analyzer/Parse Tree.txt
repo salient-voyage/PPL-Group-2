@@ -1,0 +1,18 @@
+Statement 1 (Line 1): Declaration
+	DATA TYPE: ('int')
+	IDENTIFIER: ('height')
+	SEMICOLON: (';')
+
+Statement 2 (Line 2): Declaration
+	DATA TYPE: ('int')
+	IDENTIFIER: ('height')
+	COMMA: (',')
+	IDENTIFIER: ('length')
+	SEMICOLON: (';')
+
+Statement 3 (Line 3): Assignment
+	IDENTIFIER: ('height')
+	ASSIGNMENT OPERATOR: ('=')
+	ASSIGNMENT VALUE: ('181')
+	SEMICOLON: (';')
+

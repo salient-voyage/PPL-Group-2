@@ -1,50 +1,12 @@
-Lexeme               Token                Line Number         
------------------------------------------------------
-int                  | Data Type       | 1         
-value                | Keyword         | 1         
-;                    | Delimiter       | 1         
-int                  | Data Type       | 1         
-cost                 | Data Type       | 1         
-;                    | Delimiter       | 1         
-int                  | Data Type       | 1         
-age                  | Identifier      | 1         
-,                    | Delimiter       | 1         
-height               | Identifier      | 1         
-;                    | Delimiter       | 1         
-cost                 | Delimiter       | 1         
-=                    | Operator        | 1         
-89                   | Number          | 1         
-;                    | Delimiter       | 1         
-additional           | Identifier      | 1         
-=                    | Operator        | 1         
-tax                  | Identifier      | 1         
-;                    | Delimiter       | 1         
-total                | Identifier      | 1         
-=                    | Operator        | 1         
-tax                  | Identifier      | 1         
-+                    | Operator        | 1         
-price                | Operator        | 1         
-+                    | Operator        | 1         
-5                    | Number          | 1         
-;                    | Delimiter       | 1         
-print                | Keyword         | 1         
-(                    | Delimiter       | 1         
-"Hello, World!"      | String Literal  | 1         
-)                    | Delimiter       | 1         
-;                    | Delimiter       | 1         
-print                | Keyword         | 1         
-(                    | Delimiter       | 1         
-"Value is: %d"       | String Literal  | 1         
-,                    | Delimiter       | 1         
-result               | Identifier      | 1         
-)                    | Delimiter       | 1         
-;                    | Delimiter       | 1         
-print                | Keyword         | 1         
-(                    | Delimiter       | 1         
-"Name: %s, Age: %d"  | String Literal  | 1         
-,                    | Delimiter       | 1         
-name                 | Identifier      | 1         
-,                    | Delimiter       | 1         
-age                  | Identifier      | 1         
-)                    | Delimiter       | 1         
-;                    | Delimiter       | 1         
+int                  DATA_TYPE       1         
+height               IDENTIFIER      1         
+;                    DELIMITER       1         
+int                  DATA_TYPE       2         
+height               IDENTIFIER      2         
+,                    DELIMITER       2         
+length               IDENTIFIER      2         
+;                    DELIMITER       2         
+height               IDENTIFIER      3         
+=                    OPERATOR        3         
+181                  NUMBER          3         
+;                    DELIMITER       3         
