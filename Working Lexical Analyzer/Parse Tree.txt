@@ -1,18 +1,18 @@
-Statement 1 (Line 1): Declaration
-	DATA TYPE: ('int')
-	IDENTIFIER: ('height')
+Statement 1 (Line 1): Assignment
+	IDENTIFIER: ('x')
+	ASSIGNMENT OPERATOR: ('=')
+	ASSIGNMENT VALUE: ('new_price')
 	SEMICOLON: (';')
 
-Statement 2 (Line 2): Declaration
-	DATA TYPE: ('int')
-	IDENTIFIER: ('height')
-	COMMA: (',')
-	IDENTIFIER: ('length')
-	SEMICOLON: (';')
+Statement 2 (Line 2): Assignment
+	IDENTIFIER: ('new_price')
+	ASSIGNMENT OPERATOR: ('=')
+	ASSIGNMENT VALUE: ('90')
+Error (Line 2): Expected SEMICOLON (';') after identifier
 
 Statement 3 (Line 3): Assignment
-	IDENTIFIER: ('height')
+	IDENTIFIER: ('new_price')
 	ASSIGNMENT OPERATOR: ('=')
-	ASSIGNMENT VALUE: ('181')
-	SEMICOLON: (';')
+	ASSIGNMENT VALUE: ('discount')
+Error (Line 3): Expected SEMICOLON (';') after identifier
 

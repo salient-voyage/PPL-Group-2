@@ -186,6 +186,20 @@ void parse_declarative(FILE *input_file, FILE *output_file, Token *current_token
     fprintf(output_file, "\n");
 }
 
+// Function to handle the assignment operator
+void parse_assignment_operator(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    if (current_token->type == OPERATOR && strcmp(current_token->value, "=") == 0)
+    {
+        fprintf(output_file, "\tASSIGNMENT OPERATOR: ('%s')\n", current_token->value);
+        get_token(input_file, current_token); // Get next token
+    }
+    else
+    {
+        fprintf(output_file, "Error (Line %d): Expected '=' after identifier in assignment statement\n", current_token->line_number);
+    }
+}
+
 // Function to handle assignment statements
 void parse_assignment(FILE *input_file, FILE *output_file, Token *current_token)
 {
@@ -196,36 +210,21 @@ void parse_assignment(FILE *input_file, FILE *output_file, Token *current_token)
         fprintf(output_file, "\tIDENTIFIER: ('%s')\n", current_token->value);
         get_token(input_file, current_token); // Get next token
 
-        if (current_token->type == OPERATOR && strcmp(current_token->value, "=") == 0)
+        // Parse assignment operator
+        parse_assignment_operator(input_file, output_file, current_token);
+
+        if (current_token->type == IDENTIFIER || current_token->type == NUMBER)
         {
-            fprintf(output_file, "\tASSIGNMENT OPERATOR: ('%s')\n", current_token->value);
+            fprintf(output_file, "\tASSIGNMENT VALUE: ('%s')\n", current_token->value);
             get_token(input_file, current_token); // Get next token
-
-            // Now you would process the right-hand side of the assignment (e.g., a value or expression)
-            if (current_token->type == NUMBER || current_token->type == IDENTIFIER)
-            {
-                fprintf(output_file, "\tASSIGNMENT VALUE: ('%s')\n", current_token->value);
-
-                // Check for the SEMICOLON token
-                get_token(input_file, current_token);
-                if (current_token->type == DELIMITER && strcmp(current_token->value, ";") == 0)
-                {
-                    fprintf(output_file, "\tSEMICOLON: ('%s')\n", current_token->value);
-                }
-                else
-                {
-                    fprintf(output_file, "Error (Line %d): Expected SEMICOLON (';') after assignment value\n", current_token->line_number);
-                }
-            }
-            else
-            {
-                fprintf(output_file, "Error (Line %d): Expected value or identifier after '=' in assignment statement\n", current_token->line_number);
-            }
         }
         else
         {
-            fprintf(output_file, "Error (Line %d): Expected '=' after identifier in assignment statement\n", current_token->line_number);
+            fprintf(output_file, "Error (Line %d): Expected value or identifier after '=' in assignment statement\n", current_token->line_number);
         }
+
+        // Check for the SEMICOLON token
+        parse_semicolon(input_file, output_file, current_token);
     }
     else
     {
@@ -237,6 +236,8 @@ void parse_assignment(FILE *input_file, FILE *output_file, Token *current_token)
 // Function to determine the type of statement and call appropriate parsing functions
 void determine_statement(FILE *input_file, FILE *output_file, Token *current_token)
 {
+    printf("Token ('%s') Line: %d\n", current_token->value, current_token->line_number);
+
     // Check if it is a declarative statement
     if (current_token->type == DATA_TYPE)
     {
