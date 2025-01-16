@@ -583,14 +583,68 @@ void parse_while_loop(FILE *input_file, FILE *output_file, Token *current_token)
     get_token(input_file, current_token); // Get next token
 
     // open parenthesis
-    // condition (parse_condition)
-    // close parenthesis
+    fprintf(output_file, "\t");
+    if (current_token->type == DELIMITER && strcmp(current_token->value, "(") == 0)
+    {
+        fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+        fprintf(output_file, "\n");
+        get_token(input_file, current_token); // Get next token
 
-    // curly bracket
-    //  statement list ()
-    // increment (parse_increment)
-    // close curly bracket
+        parse_condition(input_file, output_file, current_token);
+        fprintf(output_file, "\n");
 
+        // Check for closing parenthesis ')'
+        if (current_token->type == DELIMITER && strcmp(current_token->value, ")") == 0)
+        {
+            fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+            get_token(input_file, current_token); // Get next token
+        }
+        else
+        {
+            fprintf(output_file, "Error (Line %d): Missing closing parenthesis in 'while' loop\n", current_token->line_number);
+            return;
+        }
+
+        // Check for opening curly brace '{'
+        if (current_token->type == DELIMITER && strcmp(current_token->value, "{") == 0)
+        {
+            fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
+            fprintf(output_file, "\n");
+            get_token(input_file, current_token); // Get next token
+
+            // // Parse statements inside the loop
+            // while (current_token->type != DELIMITER || strcmp(current_token->value, "}") != 0)
+            // {
+            //     determine_statement(input_file, output_file, current_token);
+            //     get_token(input_file, current_token); // Get next token
+            // }
+            determine_statement(input_file, output_file, current_token);
+            parse_increment(input_file, output_file, current_token);
+            parse_semicolon(input_file, output_file, current_token);
+
+            get_token(input_file, current_token);
+            // fprintf(output_file, "%s \n", current_token->value);
+
+            // Check for closing curly brace '}'
+            if (current_token->type == DELIMITER && strcmp(current_token->value, "}") == 0)
+            {
+                fprintf(output_file, "\n");
+                fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
+            }
+            else
+            {
+                fprintf(output_file, "Error (Line %d): Missing closing curly.\n", current_token->line_number);
+            }
+        }
+        else
+        {
+            fprintf(output_file, "Error (Line %d): Expected opening curly brace '{' in 'for' loop\n", current_token->line_number);
+        }
+    }
+    else
+    {
+        fprintf(output_file, "Error (Line %d): Expected opening parenthesis '(' after 'while'\n", current_token->line_number);
+    }
     fprintf(output_file, "\n");
 }
 
@@ -639,7 +693,6 @@ void parse_if_condition(FILE *input_file, FILE *output_file, Token *current_toke
             if (current_token->type == DELIMITER && strcmp(current_token->value, "}") == 0)
             {
                 fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
-                get_token(input_file, current_token); // Move to next token after block
                 fprintf(output_file, "\n");
             }
             else
@@ -648,6 +701,7 @@ void parse_if_condition(FILE *input_file, FILE *output_file, Token *current_toke
                 return;
             }
 
+            // get_token(input_file, current_token); // Move to next token after block
             // Check for "else"
             if (current_token->type == KEYWORD && strcmp(current_token->value, "else") == 0)
             {
