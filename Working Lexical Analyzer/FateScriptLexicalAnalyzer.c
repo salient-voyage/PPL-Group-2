@@ -16,7 +16,7 @@ typedef enum
     DELIMITER,
     COMMENT,
     WHITESPACE,
-    STRING_LITERAL,
+    STRING_LITERALS,
     CHARACTER,
     ERROR,
     DATA_TYPE
@@ -65,7 +65,7 @@ void printToken(Token token, FILE *file)
     case WHITESPACE:
         printf("Whitespace: %s\n", token.value);
         break;
-    case STRING_LITERAL:
+    case STRING_LITERALS:
         printf("String Literal: %s\n", token.value);
         break;
     case CHARACTER:
@@ -110,8 +110,8 @@ void printToken(Token token, FILE *file)
     case WHITESPACE:
         tokenTypeStr = "WHITESPACE";
         break;
-    case STRING_LITERAL:
-        tokenTypeStr = "STRING_LITERAL";
+    case STRING_LITERALS:
+        tokenTypeStr = "STRING_LITERALS";
         break;
     case CHARACTER:
         tokenTypeStr = "CHARACTER";
@@ -199,7 +199,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
         // Handle string literals (quoted strings)
         else if (currentChar == '"')
         {
-            currentToken.type = STRING_LITERAL;
+            currentToken.type = STRING_LITERALS;
             j = 0;
             currentToken.value[j++] = currentChar;
 
@@ -737,7 +737,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
             i++;
         }
         // Handle delimiters
-        else if (strchr(";,()[].'\"'", currentChar))
+        else if (strchr(";,()[]&.'\"'", currentChar))
         {
             currentToken.value[0] = currentChar;
             currentToken.value[1] = '\0';

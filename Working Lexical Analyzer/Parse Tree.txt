@@ -1,18 +1,141 @@
-Statement 1 (Line 1): Assignment
-	IDENTIFIER: ('x')
+Statement 1 (Line 1): Iterative (for)
+	KEYWORD: ('for')
+		PARENTHESIS: ('(')
+
+Statement 2 (Line 1): Assignment
+	IDENTIFIER: ('i')
 	ASSIGNMENT OPERATOR: ('=')
-	ASSIGNMENT VALUE: ('new_price')
+	NUMBER: ('1')
 	SEMICOLON: (';')
 
-Statement 2 (Line 2): Assignment
-	IDENTIFIER: ('new_price')
-	ASSIGNMENT OPERATOR: ('=')
-	ASSIGNMENT VALUE: ('90')
-Error (Line 2): Expected SEMICOLON (';') after identifier
+i 
+Statement 3 (Line 2): Condition
+	IDENTIFIER: ('i')
+	OPERATOR: ('<=')
+	NUMBER: ('5')
+	SEMICOLON: (';')
 
-Statement 3 (Line 3): Assignment
+Statement 4 (Line 2): Increment
+	IDENTIFIER: ('i')
+	OPERATOR: ('++')
+	PARENTHESIS: (')')
+	CURLY BRACE: ('{')
+
+Statement 5 (Line 4): Output
+	KEYWORD: ('print')
+	PARENTHESIS: ('(')
+	STRING: ("%d")
+	COMMA: (',')
+	IDENTIFIER: ('i')
+	PARENTHESIS: (')')
+	SEMICOLON: (';')
+
+	CURLY BRACE: ('}')
+
+Statement 6 (Line 6): Conditional (if-statement)
+	KEYWORD: ('if')
+	PARENTHESIS: ('(')
+
+Statement 7 (Line 6): Condition
+	IDENTIFIER: ('x')
+	OPERATOR: ('<')
+	NUMBER: ('20')
+	PARENTHESIS: (')')
+	CURLY BRACE: ('{')
+
+	CURLY BRACE: ('}')
+
+Statement 8 (Line 9): Declaration
+	DATA TYPE: ('str')
+	IDENTIFIER: ('full_name')
+	SEMICOLON: (';')
+
+Statement 9 (Line 10): Declaration
+	DATA TYPE: ('int')
+	IDENTIFIER: ('age')
+	COMMA: (',')
+	IDENTIFIER: ('height')
+	SEMICOLON: (';')
+
+Statement 10 (Line 11): Declaration
+	DATA TYPE: ('bool')
+	IDENTIFIER: ('is_married')
+	SEMICOLON: (';')
+
+Statement 11 (Line 12): Input
+	KEYWORD: ('input')
+	PARENTHESIS: ('(')
+	STRING: ("Enter value: ")
+	DELIMITER: (',')
+	DELIMITER: ('&')
+	IDENTIFIER: ('result')
+	PARENTHESIS: (')')
+	SEMICOLON: (';')
+
+Statement 12 (Line 13): Output
+	KEYWORD: ('print')
+	PARENTHESIS: ('(')
+	STRING: ("Hello, World!")
+	PARENTHESIS: (')')
+	SEMICOLON: (';')
+
+Statement 13 (Line 14): Output
+	KEYWORD: ('print')
+	PARENTHESIS: ('(')
+	STRING: ("Value is: %d")
+	COMMA: (',')
+	IDENTIFIER: ('result')
+	PARENTHESIS: (')')
+	SEMICOLON: (';')
+
+Statement 14 (Line 15): Output
+	KEYWORD: ('print')
+	PARENTHESIS: ('(')
+	STRING: ("Name: %s, Age: %d")
+	COMMA: (',')
+	IDENTIFIER: ('name')
+	COMMA: (',')
+	IDENTIFIER: ('age')
+	PARENTHESIS: (')')
+	SEMICOLON: (';')
+
+Statement 15 (Line 16): Assignment
+	IDENTIFIER: ('x')
+	ASSIGNMENT OPERATOR: ('=')
+	IDENTIFIER: ('new_price')
+	SEMICOLON: (';')
+
+Statement 16 (Line 17): Assignment
+	IDENTIFIER: ('last_name')
+	ASSIGNMENT OPERATOR: ('=')
+	STRING: ("Legarda")
+	SEMICOLON: (';')
+
+Statement 17 (Line 18): Assignment
 	IDENTIFIER: ('new_price')
 	ASSIGNMENT OPERATOR: ('=')
-	ASSIGNMENT VALUE: ('discount')
-Error (Line 3): Expected SEMICOLON (';') after identifier
+	NUMBER: ('90')
+	OPERATOR: ('-')
+	NUMBER: ('30')
+	SEMICOLON: (';')
+
+Statement 18 (Line 19): Assignment
+	IDENTIFIER: ('new_price')
+	ASSIGNMENT OPERATOR: ('=')
+	IDENTIFIER: ('discount')
+	OPERATOR: ('-')
+	NUMBER: ('30')
+	SEMICOLON: (';')
+
+Statement 19 (Line 20): Assignment
+	IDENTIFIER: ('discount_status')
+	ASSIGNMENT OPERATOR: ('=')
+	PARENTHESIS: ('(')
+	IDENTIFIER: ('sale_price')
+	OPERATOR: ('+')
+	NUMBER: ('20')
+	PARENTHESIS: (')')
+	OPERATOR: ('>=')
+	NUMBER: ('100')
+	SEMICOLON: (';')
 

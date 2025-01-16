@@ -166,7 +166,7 @@ void parse_print_statement(char *input, int *index)
 
             // Parse the first argument (string literal)
             log_output("\t");
-            parse_string_literal(input, index);
+                parse_string_literal(input, index);
 
             // Handle multiple arguments, separated by commas
             while (current_token.type == OPERATOR && strcmp(current_token.value, ",") == 0)

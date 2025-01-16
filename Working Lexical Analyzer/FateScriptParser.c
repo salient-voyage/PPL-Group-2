@@ -20,7 +20,7 @@ typedef enum
     DELIMITER,
     COMMENT,
     WHITESPACE,
-    STRING_LITERAL,
+    STRING_LITERALS,
     CHARACTER,
     ERROR,
     DATA_TYPE
@@ -57,14 +57,18 @@ TokenType get_token_type(const char *type_str)
         return COMMENT;
     if (strcmp(type_str, "WHITESPACE") == 0)
         return WHITESPACE;
-    if (strcmp(type_str, "STRING_LITERAL") == 0)
-        return STRING_LITERAL;
+    if (strcmp(type_str, "STRING_LITERALS") == 0)
+        return STRING_LITERALS;
     if (strcmp(type_str, "CHARACTER") == 0)
         return CHARACTER;
     if (strcmp(type_str, "DATA_TYPE") == 0)
         return DATA_TYPE;
     return ERROR;
 }
+
+// Parsing Functions Prototypes
+void parse_assignment(FILE *input_file, FILE *output_file, Token *current_token);
+void determine_statement(FILE *input_file, FILE *output_file, Token *current_token);
 
 // Function to map TokenType enum to string
 const char *get_token_type_string(TokenType type)
@@ -89,8 +93,8 @@ const char *get_token_type_string(TokenType type)
         return "COMMENT";
     case WHITESPACE:
         return "WHITESPACE";
-    case STRING_LITERAL:
-        return "STRING_LITERAL";
+    case STRING_LITERALS:
+        return "STRING_LITERALS";
     case CHARACTER:
         return "CHARACTER";
     case DATA_TYPE:
@@ -109,13 +113,35 @@ int get_token(FILE *input_file, Token *current_token)
 
     char value[MAX_TOKEN_SIZE], type_str[MAX_TOKEN_SIZE];
     int line_number;
-    if (sscanf(line, "%s %s %d", value, type_str, &line_number) != 3)
-        return 0;
 
-    // Populate the token structure
-    strncpy(current_token->value, value, MAX_TOKEN_SIZE);
-    current_token->type = get_token_type(type_str);
-    current_token->line_number = line_number;
+    // Check for string literals (handling "Hello, World!")
+    // Check for string literals (handling "Hello, World!")
+    if (sscanf(line, "\"%[^\"]\" %s %d", value, type_str, &line_number) == 3)
+    {
+        // It's a string literal, including the quotes in the value
+        current_token->type = STRING_LITERALS;
+
+        // Add the double quotes to the string value
+        snprintf(current_token->value, MAX_TOKEN_SIZE, "\"%s\"", value);
+
+        current_token->line_number = line_number;
+    }
+
+    else if (sscanf(line, "%s %s %d", value, type_str, &line_number) == 3)
+    {
+        // It's a normal token (non-string)
+        current_token->type = get_token_type(type_str);
+        strncpy(current_token->value, value, MAX_TOKEN_SIZE);
+        current_token->line_number = line_number;
+    }
+    else
+    {
+        return 0; // Invalid token
+    }
+
+    // Print the token information on a single line
+    // printf("Token: '%s' Type: '%s' Line: %d \n", current_token->value, type_str, current_token->line_number);
+
     return 1;
 }
 
@@ -145,7 +171,7 @@ void parse_identifier(FILE *input_file, FILE *output_file, Token *current_token)
     }
     else
     {
-        fprintf(output_file, "Error (Line %d): Expected IDENTIFIER after data type\n", current_token->line_number);
+        fprintf(output_file, "Error (Line %d): Expected IDENTIFIER\n", current_token->line_number);
     }
 }
 
@@ -163,32 +189,10 @@ void parse_semicolon(FILE *input_file, FILE *output_file, Token *current_token)
     }
 }
 
-// Function to handle declarative statements
-void parse_declarative(FILE *input_file, FILE *output_file, Token *current_token)
-{
-    // Print the declarative statement with statement number and line number
-    fprintf(output_file, "Statement %d (Line %d): Declaration\n", statement_number++, current_token->line_number);
-
-    // Call parse functions
-    parse_data_type(input_file, output_file, current_token);
-    parse_identifier(input_file, output_file, current_token);
-    // Check if there are additional identifiers (separated by commas)
-    while (current_token->type == DELIMITER && strcmp(current_token->value, ",") == 0)
-    {
-        fprintf(output_file, "\tCOMMA: ('%s')\n", current_token->value);
-        get_token(input_file, current_token); // Get next token
-
-        // Process the next identifier
-        parse_identifier(input_file, output_file, current_token);
-    }
-    parse_semicolon(input_file, output_file, current_token);
-
-    fprintf(output_file, "\n");
-}
-
 // Function to handle the assignment operator
 void parse_assignment_operator(FILE *input_file, FILE *output_file, Token *current_token)
 {
+
     if (current_token->type == OPERATOR && strcmp(current_token->value, "=") == 0)
     {
         fprintf(output_file, "\tASSIGNMENT OPERATOR: ('%s')\n", current_token->value);
@@ -197,39 +201,450 @@ void parse_assignment_operator(FILE *input_file, FILE *output_file, Token *curre
     else
     {
         fprintf(output_file, "Error (Line %d): Expected '=' after identifier in assignment statement\n", current_token->line_number);
+        return;
     }
 }
 
-// Function to handle assignment statements
-void parse_assignment(FILE *input_file, FILE *output_file, Token *current_token)
+// Function to parse the operator in a condition
+void parse_operator(FILE *input_file, FILE *output_file, Token *current_token)
 {
-    if (current_token->type == IDENTIFIER)
+    // Check if the current token is a valid operator
+    if (current_token->type == OPERATOR)
     {
-        // Print the assignment statement with statement number and line number
-        fprintf(output_file, "Statement %d (Line %d): Assignment\n", statement_number++, current_token->line_number);
-        fprintf(output_file, "\tIDENTIFIER: ('%s')\n", current_token->value);
+        fprintf(output_file, "\tOPERATOR: ('%s')\n", current_token->value);
+        get_token(input_file, current_token);
+    }
+    else
+    {
+        fprintf(output_file, "Error (Line %d): Expected valid operator in condition\n", current_token->line_number);
+        return;
+    }
+}
+
+// Helper function to parse string literals
+void parse_string_literal(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    // Check for STRING_LITERALS token type and print it
+    if (current_token->type == STRING_LITERALS)
+    {
+        fprintf(output_file, "\tSTRING: (%s)\n", current_token->value);
+        get_token(input_file, current_token); // Get next token
+    }
+    else
+    {
+        fprintf(output_file, "Error (Line %d): Expected string literal\n", current_token->line_number);
+    }
+}
+
+void parse_number(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    // Print the number value
+    fprintf(output_file, "\tNUMBER: ('%s')\n", current_token->value);
+
+    // Get the next token after number to proceed
+    get_token(input_file, current_token);
+}
+
+void parse_expression(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    // Check for opening parenthesis
+    if (current_token->type == DELIMITER && strcmp(current_token->value, "(") == 0)
+    {
+        fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+        get_token(input_file, current_token); // Get the next token
+
+        parse_expression(input_file, output_file, current_token); // Parse the nested expression
+
+        // Ensure a closing parenthesis exists
+        if (current_token->type == DELIMITER && strcmp(current_token->value, ")") == 0)
+        {
+            fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+            get_token(input_file, current_token); // Move to the next token
+        }
+        else
+        {
+            fprintf(output_file, "Error (Line %d): Missing closing parenthesis\n", current_token->line_number);
+            return;
+        }
+    }
+    else if (current_token->type == IDENTIFIER)
+    {
+        parse_identifier(input_file, output_file, current_token);
+    }
+    else if (current_token->type == NUMBER)
+    {
+        parse_number(input_file, output_file, current_token);
+    }
+    else if (current_token->type == STRING_LITERALS)
+    {
+        parse_string_literal(input_file, output_file, current_token);
+    }
+    else
+    {
+        fprintf(output_file, "Error (Line %d): Expected a value, identifier, or nested expression\n", current_token->line_number);
+        return;
+    }
+
+    // Check for operators and recursively parse the right-hand side
+    while (current_token->type == OPERATOR)
+    {
+        fprintf(output_file, "\tOPERATOR: ('%s')\n", current_token->value);
+        get_token(input_file, current_token); // Move to the next token
+
+        // Recursively parse the next part of the expression
+        parse_expression(input_file, output_file, current_token);
+    }
+}
+
+void parse_condition(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    fprintf(output_file, "Statement %d (Line %d): Condition\n", statement_number++, current_token->line_number);
+
+    // Parse the identifier (e.g., i)
+    parse_identifier(input_file, output_file, current_token);
+
+    // Parse the operator (e.g., <=, =)
+    parse_operator(input_file, output_file, current_token);
+
+    // Parse the number or second identifier (e.g., 5 or another variable)
+    if (current_token->type == NUMBER)
+    {
+        parse_number(input_file, output_file, current_token);
+    }
+    else if (current_token->type == IDENTIFIER)
+    {
+        parse_identifier(input_file, output_file, current_token);
+    }
+    else
+    {
+        fprintf(output_file, "Error (Line %d): Expected number or identifier after operator in condition\n", current_token->line_number);
+        return;
+    }
+}
+
+// Function to parse the increment in the loop
+void parse_increment(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    fprintf(output_file, "Statement %d (Line %d): Increment\n", statement_number++, current_token->line_number);
+    get_token(input_file, current_token);
+
+    // Parse identifier (variable to increment)
+    parse_identifier(input_file, output_file, current_token);
+
+    parse_operator(input_file, output_file, current_token);
+}
+
+// Statement Parsing Functions
+void parse_declaration(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    // Print the declarative statement with statement number and line number
+    fprintf(output_file, "Statement %d (Line %d): Declaration\n", statement_number++, current_token->line_number);
+
+    // Call parse functions
+    parse_data_type(input_file, output_file, current_token);
+
+    // Parse the identifier
+    parse_identifier(input_file, output_file, current_token);
+
+    // Check for a comma (to handle multiple declarations)
+    while (current_token->type == DELIMITER && strcmp(current_token->value, ",") == 0)
+    {
+        fprintf(output_file, "\tCOMMA: ('%s')\n", current_token->value);
         get_token(input_file, current_token); // Get next token
 
-        // Parse assignment operator
-        parse_assignment_operator(input_file, output_file, current_token);
+        parse_identifier(input_file, output_file, current_token);
+    }
 
-        if (current_token->type == IDENTIFIER || current_token->type == NUMBER)
+    // Parse the semicolon
+    parse_semicolon(input_file, output_file, current_token);
+    fprintf(output_file, "\n");
+}
+
+void parse_assignment(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    // Print the assignment statement with statement number and line number
+    fprintf(output_file, "Statement %d (Line %d): Assignment\n", statement_number++, current_token->line_number);
+    parse_identifier(input_file, output_file, current_token);
+
+    // Parse assignment operator
+    parse_assignment_operator(input_file, output_file, current_token);
+
+    // Parse the expression
+    parse_expression(input_file, output_file, current_token);
+
+    // Check for the SEMICOLON token
+    parse_semicolon(input_file, output_file, current_token);
+    fprintf(output_file, "\n");
+}
+
+void parse_output(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    fprintf(output_file, "Statement %d (Line %d): Output\n", statement_number++, current_token->line_number);
+    fprintf(output_file, "\tKEYWORD: ('%s')\n", current_token->value);
+    get_token(input_file, current_token); // Get next token
+
+    // Check for opening parenthesis '('
+    if (current_token->type == DELIMITER && strcmp(current_token->value, "(") == 0)
+    {
+        fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+        get_token(input_file, current_token); // Get next token to check for string literal
+
+        // Parse the string literal
+        parse_string_literal(input_file, output_file, current_token);
+
+        // Parse optional arguments separated by commas
+        while (current_token->type == DELIMITER && strcmp(current_token->value, ",") == 0)
         {
-            fprintf(output_file, "\tASSIGNMENT VALUE: ('%s')\n", current_token->value);
+            fprintf(output_file, "\tCOMMA: ('%s')\n", current_token->value);
+            get_token(input_file, current_token); // Get next token
+
+            // Check if the token is a valid identifier or number
+            if (current_token->type == IDENTIFIER)
+            {
+                parse_identifier(input_file, output_file, current_token);
+            }
+            else if (current_token->type == NUMBER)
+            {
+                parse_number(input_file, output_file, current_token);
+            }
+            else
+            {
+                fprintf(output_file, "Error (Line %d): Expected identifier or number after ','\n", current_token->line_number);
+                return;
+            }
+        }
+
+        // Check for closing parenthesis ')'
+        if (current_token->type == DELIMITER && strcmp(current_token->value, ")") == 0)
+        {
+            fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+            get_token(input_file, current_token); // Get next token (to check for semicolon)
+
+            // Parse the semicolon directly
+            parse_semicolon(input_file, output_file, current_token);
+        }
+        else
+        {
+            fprintf(output_file, "Error (Line %d): Expected closing parenthesis ')'\n", current_token->line_number);
+            return;
+        }
+    }
+    else
+    {
+        fprintf(output_file, "Error (Line %d): Expected opening parenthesis '('\n", current_token->line_number);
+        return;
+    }
+
+    fprintf(output_file, "\n");
+}
+
+void parse_input(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    fprintf(output_file, "Statement %d (Line %d): Input\n", statement_number++, current_token->line_number);
+    fprintf(output_file, "\tKEYWORD: ('%s')\n", current_token->value);
+    get_token(input_file, current_token); // Get next token
+
+    // Check for opening parenthesis '('
+    if (current_token->type == DELIMITER && strcmp(current_token->value, "(") == 0)
+    {
+        fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+        get_token(input_file, current_token); // Get next token (to check for string literal)
+
+        // Parse string literal (prompt message inside quotes)
+        parse_string_literal(input_file, output_file, current_token);
+
+        if (current_token->type == DELIMITER && strcmp(current_token->value, ",") == 0)
+        {
+            fprintf(output_file, "\tDELIMITER: ('%s')\n", current_token->value);
+            get_token(input_file, current_token); // Get next token (to check for address operator or identifier)
+
+            // Check if it's the address operator '&'
+            if (current_token->type == DELIMITER && strcmp(current_token->value, "&") == 0)
+            {
+                fprintf(output_file, "\tDELIMITER: ('%s')\n", current_token->value);
+                get_token(input_file, current_token); // Get next token (to check for identifier)
+            }
+            else
+            {
+                fprintf(output_file, "Error (Line %d): Expected address operator ('&') for input variable\n", current_token->line_number);
+                return; // Exit as we need the address operator
+            }
+
+            // Now parse the identifier (variable to store the input)
+            if (current_token->type == IDENTIFIER)
+            {
+                fprintf(output_file, "\tIDENTIFIER: ('%s')\n", current_token->value);
+                get_token(input_file, current_token); // Get next token (to check for closing parenthesis)
+            }
+            else
+            {
+                fprintf(output_file, "Error (Line %d): Expected identifier for result variable\n", current_token->line_number);
+                return; // Exit as identifier is missing
+            }
+
+            // Check for closing parenthesis ')'
+            if (current_token->type == DELIMITER && strcmp(current_token->value, ")") == 0)
+            {
+                fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+                get_token(input_file, current_token);                    // Get next token (to check for semicolon)
+                parse_semicolon(input_file, output_file, current_token); // Assume semicolon function is already defined
+            }
+            else
+            {
+                fprintf(output_file, "Error (Line %d): Expected closing parenthesis ')'\n", current_token->line_number);
+            }
+        }
+        else
+        {
+            fprintf(output_file, "Error (Line %d): Expected comma (',') after input prompt\n", current_token->line_number);
+        }
+    }
+    else
+    {
+        fprintf(output_file, "Error (Line %d): Expected opening parenthesis '('\n", current_token->line_number);
+    }
+    fprintf(output_file, "\n");
+}
+
+void parse_for_loop(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    fprintf(output_file, "Statement %d (Line %d): Iterative (for)\n", statement_number++, current_token->line_number);
+    fprintf(output_file, "\tKEYWORD: ('%s')\n", current_token->value);
+    get_token(input_file, current_token); // Get next token
+
+    // Check for opening parenthesis '('
+    fprintf(output_file, "\t");
+    if (current_token->type == DELIMITER && strcmp(current_token->value, "(") == 0)
+    {
+        fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+        fprintf(output_file, "\n");
+        get_token(input_file, current_token); // Get next token
+
+        parse_assignment(input_file, output_file, current_token);
+        get_token(input_file, current_token); // Get next token
+        parse_condition(input_file, output_file, current_token);
+        parse_semicolon(input_file, output_file, current_token);
+        fprintf(output_file, "\n");
+        parse_increment(input_file, output_file, current_token);
+
+        // Check for closing parenthesis ')'
+        if (current_token->type == DELIMITER && strcmp(current_token->value, ")") == 0)
+        {
+            fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
             get_token(input_file, current_token); // Get next token
         }
         else
         {
-            fprintf(output_file, "Error (Line %d): Expected value or identifier after '=' in assignment statement\n", current_token->line_number);
+            fprintf(output_file, "Error (Line %d): Missing closing parenthesis in 'for' loop\n", current_token->line_number);
+            return;
         }
 
-        // Check for the SEMICOLON token
-        parse_semicolon(input_file, output_file, current_token);
+        // Check for opening curly brace '{'
+        if (current_token->type == DELIMITER && strcmp(current_token->value, "{") == 0)
+        {
+            fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
+            fprintf(output_file, "\n");
+            get_token(input_file, current_token); // Get next token
+
+            // Parse statements inside the loop
+            while (current_token->type != DELIMITER || strcmp(current_token->value, "}") != 0)
+            {
+                determine_statement(input_file, output_file, current_token);
+                get_token(input_file, current_token); // Get next token
+            }
+
+            // Check for closing curly brace '}'
+            if (current_token->type == DELIMITER && strcmp(current_token->value, "}") == 0)
+            {
+                fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
+            }
+            else
+            {
+                fprintf(output_file, "Error (Line %d): Missing closing curly brace in 'for' loop\n", current_token->line_number);
+            }
+        }
+        else
+        {
+            fprintf(output_file, "Error (Line %d): Expected opening curly brace '{' in 'for' loop\n", current_token->line_number);
+        }
     }
     else
     {
-        fprintf(output_file, "Error (Line %d): Expected identifier for assignment statement\n", current_token->line_number);
+        fprintf(output_file, "Error (Line %d): Expected opening parenthesis '(' after 'for'\n", current_token->line_number);
     }
+
+    fprintf(output_file, "\n");
+}
+
+void parse_while_loop(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    fprintf(output_file, "Statement %d (Line %d): Iterative (while)\n", statement_number++, current_token->line_number);
+    fprintf(output_file, "\tKEYWORD: ('%s')\n", current_token->value);
+
+    fprintf(output_file, "\n");
+}
+
+void parse_if_condition(FILE *input_file, FILE *output_file, Token *current_token)
+{
+    fprintf(output_file, "Statement %d (Line %d): Conditional (if-statement)\n", statement_number++, current_token->line_number);
+    fprintf(output_file, "\tKEYWORD: ('%s')\n", current_token->value);
+    get_token(input_file, current_token); // Get next token
+
+    // Check for opening parenthesis '('
+    if (current_token->type == DELIMITER && strcmp(current_token->value, "(") == 0)
+    {
+        fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+        fprintf(output_file, "\n");
+        get_token(input_file, current_token); // Get next token
+
+        parse_condition(input_file, output_file, current_token);
+
+        // Check for closing parenthesis ')'
+        if (current_token->type == DELIMITER && strcmp(current_token->value, ")") == 0)
+        {
+            fprintf(output_file, "\tPARENTHESIS: ('%s')\n", current_token->value);
+            get_token(input_file, current_token); // Get next token
+        }
+        else
+        {
+            fprintf(output_file, "Error (Line %d): Missing closing parenthesis in 'for' loop\n", current_token->line_number);
+            return;
+        }
+
+        // Check for opening curly brace '{'
+        if (current_token->type == DELIMITER && strcmp(current_token->value, "{") == 0)
+        {
+            fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
+            fprintf(output_file, "\n");
+            get_token(input_file, current_token); // Get next token
+
+            // Parse statements inside the loop
+            while (current_token->type != DELIMITER || strcmp(current_token->value, "}") != 0)
+            {
+                determine_statement(input_file, output_file, current_token);
+                get_token(input_file, current_token); // Get next token
+            }
+
+            // Check for closing curly brace '}'
+            if (current_token->type == DELIMITER && strcmp(current_token->value, "}") == 0)
+            {
+                fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
+            }
+            else
+            {
+                fprintf(output_file, "Error (Line %d): Missing closing curly brace in 'for' loop\n", current_token->line_number);
+            }
+        }
+        else
+        {
+            fprintf(output_file, "Error (Line %d): Expected opening curly brace '{' in 'for' loop\n", current_token->line_number);
+        }
+    }
+    else
+    {
+        fprintf(output_file, "Error (Line %d): Expected opening parenthesis '(' after 'for'\n", current_token->line_number);
+    }
+
     fprintf(output_file, "\n");
 }
 
@@ -241,12 +656,37 @@ void determine_statement(FILE *input_file, FILE *output_file, Token *current_tok
     // Check if it is a declarative statement
     if (current_token->type == DATA_TYPE)
     {
-        parse_declarative(input_file, output_file, current_token);
+        parse_declaration(input_file, output_file, current_token);
     }
     // Check if it is an assignment statement
     else if (current_token->type == IDENTIFIER)
     {
         parse_assignment(input_file, output_file, current_token);
+    }
+    // Check if it is an output statement
+    else if (current_token->type == KEYWORD && strcmp(current_token->value, "print") == 0)
+    {
+        parse_output(input_file, output_file, current_token);
+    }
+    // Check if it is an input statement
+    else if (current_token->type == KEYWORD && strcmp(current_token->value, "input") == 0)
+    {
+        parse_input(input_file, output_file, current_token);
+    }
+    // Check if it is an output statement
+    else if (current_token->type == KEYWORD && strcmp(current_token->value, "for") == 0)
+    {
+        parse_for_loop(input_file, output_file, current_token);
+    }
+    // Check if it is an input statement
+    else if (current_token->type == KEYWORD && strcmp(current_token->value, "while") == 0)
+    {
+        parse_while_loop(input_file, output_file, current_token);
+    }
+    // Check if it is an output statement
+    else if (current_token->type == KEYWORD && strcmp(current_token->value, "if") == 0)
+    {
+        parse_if_condition(input_file, output_file, current_token);
     }
 }
 
