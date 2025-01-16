@@ -26,7 +26,6 @@ typedef enum
     DATA_TYPE
 } TokenType;
 
-// Token structure
 typedef struct
 {
     TokenType type;
@@ -115,7 +114,6 @@ int get_token(FILE *input_file, Token *current_token)
     int line_number;
 
     // Check for string literals (handling "Hello, World!")
-    // Check for string literals (handling "Hello, World!")
     if (sscanf(line, "\"%[^\"]\" %s %d", value, type_str, &line_number) == 3)
     {
         // It's a string literal, including the quotes in the value
@@ -138,10 +136,6 @@ int get_token(FILE *input_file, Token *current_token)
     {
         return 0; // Invalid token
     }
-
-    // Print the token information on a single line
-    // printf("Token: '%s' Type: '%s' Line: %d \n", current_token->value, type_str, current_token->line_number);
-
     return 1;
 }
 

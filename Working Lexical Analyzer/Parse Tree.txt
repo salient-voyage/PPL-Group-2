@@ -223,11 +223,42 @@ Statement 31 (Line 36): Output
 
 	CURLY BRACE: ('}')
 
-Statement 32 (Line 39): Iterative (while)
+Statement 32 (Line 39): Iterative (for)
+	KEYWORD: ('for')
+		PARENTHESIS: ('(')
+
+Statement 33 (Line 39): Assignment
+	IDENTIFIER: ('i')
+	ASSIGNMENT OPERATOR: ('=')
+	NUMBER: ('1')
+	SEMICOLON: (';')
+
+Statement 34 (Line 39): Condition
+	IDENTIFIER: ('i')
+	OPERATOR: ('<=')
+	NUMBER: ('5')
+	SEMICOLON: (';')
+
+Statement 35 (Line 39): Increment
+	IDENTIFIER: ('i')
+	OPERATOR: ('++')
+	PARENTHESIS: (')')
+	CURLY BRACE: ('{')
+
+Statement 36 (Line 40): Output
+	KEYWORD: ('print')
+	PARENTHESIS: ('(')
+	STRING: ("%d")
+	COMMA: (',')
+	IDENTIFIER: ('i')
+	PARENTHESIS: (')')
+	SEMICOLON: (';')
+
+Statement 37 (Line 41): Iterative (while)
 	KEYWORD: ('while')
 		PARENTHESIS: ('(')
 
-Statement 33 (Line 39): Condition
+Statement 38 (Line 41): Condition
 	IDENTIFIER: ('count')
 	OPERATOR: ('>')
 	NUMBER: ('0')
@@ -235,7 +266,7 @@ Statement 33 (Line 39): Condition
 	PARENTHESIS: (')')
 	CURLY BRACE: ('{')
 
-Statement 34 (Line 40): Output
+Statement 39 (Line 42): Output
 	KEYWORD: ('print')
 	PARENTHESIS: ('(')
 	STRING: ("%d")
@@ -244,30 +275,49 @@ Statement 34 (Line 40): Output
 	PARENTHESIS: (')')
 	SEMICOLON: (';')
 
-Statement 35 (Line 40): Increment
+Statement 40 (Line 42): Increment
 	IDENTIFIER: ('count')
 	OPERATOR: ('--')
 	SEMICOLON: (';')
 
 	CURLY BRACE: ('}')
 
-Statement 36 (Line 44): Assignment
-	IDENTIFIER: ('x')
-	ASSIGNMENT OPERATOR: ('=')
-Error (Line 44): Expected a value, identifier, or nested expression
-	SEMICOLON: (';')
+	CURLY BRACE: ('}')
 
-Statement 37 (Line 45): Output
-	KEYWORD: ('print')
-Error (Line 45): Expected opening parenthesis '('
-Statement 38 (Line 46): Conditional (if-statement)
-	KEYWORD: ('if')
-Error (Line 46): Expected opening parenthesis '(' after 'if'
+Statement 41 (Line 47): Iterative (while)
+	KEYWORD: ('while')
+		PARENTHESIS: ('(')
 
-Statement 39 (Line 47): Output
+Statement 42 (Line 47): Condition
+	IDENTIFIER: ('count')
+	OPERATOR: ('>')
+	NUMBER: ('0')
+
+	PARENTHESIS: (')')
+	CURLY BRACE: ('{')
+
+Statement 43 (Line 48): Output
 	KEYWORD: ('print')
 	PARENTHESIS: ('(')
-	STRING: ("x")
+	STRING: ("%d")
+	COMMA: (',')
+	IDENTIFIER: ('count')
 	PARENTHESIS: (')')
-Error (Line 48): Expected SEMICOLON (';') after identifier
+	SEMICOLON: (';')
 
+Statement 44 (Line 48): Increment
+	IDENTIFIER: ('count')
+	OPERATOR: ('--')
+	SEMICOLON: (';')
+
+	CURLY BRACE: ('}')
+
+Statement 45 (Line 52): Assignment
+	IDENTIFIER: ('x')
+	ASSIGNMENT OPERATOR: ('=')
+Error (Line 52): Expected a value, identifier, or nested expression
+	SEMICOLON: (';')
+
+Statement 46 (Line 53): Output
+	KEYWORD: ('print')
+Error (Line 53): Expected opening parenthesis '('

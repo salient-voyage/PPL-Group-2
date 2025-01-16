@@ -1,11 +1,53 @@
-#Program to get user's full name
+str full_name;
+int age, height;
+bool is_married;
 
-print("Enter your first name: ") 
-str first_name = input() 
+input("Enter value: ", &result);
 
-print("Enter your last name: ") 
-str last_name = input() 
+print("Hello, World!");
+print("Value is: %d", result);
+print("Name: %s, Age: %d", name, age);
 
-str full_name = first_name + " " + last_name 
+x = new_price;
+last_name = "Legarda";
+new_price = 90 - 30;
+new_price = discount - 30;
+discount_status = (sale_price + 20) >= 100;
 
-print("Your full name is: " + full_name)
+if (x < 20) {
+        print("x is less than 20\n");
+    }
+
+if (x > 0) {
+    print("Positive\n");
+} else {
+    print("Negative\n");
+}
+
+if (x > 0) {
+    print("Positive\n");
+} else if (x == 0) {
+    print("Zero\n");
+} else {
+    print("Negative\n");
+}
+
+for (i = 1; i <= 5; i++) {
+    print("%d", i);
+    }
+
+for (i = 1; i <= 5; i++) {
+    print("%d", i);
+    while (count > 0) {
+    print("%d", count);
+    count -- ; 
+    }
+    }
+
+while (count > 0) {
+    print("%d", count);
+    count -- ; 
+}
+
+x = ;
+print"Hello, World!";
