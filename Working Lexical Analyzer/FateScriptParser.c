@@ -580,6 +580,16 @@ void parse_while_loop(FILE *input_file, FILE *output_file, Token *current_token)
 {
     fprintf(output_file, "Statement %d (Line %d): Iterative (while)\n", statement_number++, current_token->line_number);
     fprintf(output_file, "\tKEYWORD: ('%s')\n", current_token->value);
+    get_token(input_file, current_token); // Get next token
+
+    // open parenthesis
+    // condition (parse_condition)
+    // close parenthesis
+
+    // curly bracket
+    //  statement list ()
+    // increment (parse_increment)
+    // close curly bracket
 
     fprintf(output_file, "\n");
 }

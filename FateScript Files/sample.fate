@@ -1,20 +1,4 @@
-for (i = 1; i <= 5; i++) {
-    print("%d", i);
-    }
-
-if (x < 20) {
-        printf("x is less than 20\n");
-    }
-    
-str full_name;
-int age, height;
-bool is_married;
-input("Enter value: ", &result);
-print("Hello, World!");
-print("Value is: %d", result);
-print("Name: %s, Age: %d", name, age);
-x = new_price;
-last_name = "Legarda";
-new_price = 90 - 30;
-new_price = discount - 30;
-discount_status = (sale_price + 20) >= 100;
+while (count > 0) {
+print (“%d“, count);
+count-- ; 
+}

@@ -1,140 +1,32 @@
-Statement 1 (Line 1): Iterative (for)
-	KEYWORD: ('for')
-		PARENTHESIS: ('(')
+Statement 1 (Line 1): Iterative (while)
+	KEYWORD: ('while')
 
 Statement 2 (Line 1): Assignment
-	IDENTIFIER: ('i')
-	ASSIGNMENT OPERATOR: ('=')
-	NUMBER: ('1')
-	SEMICOLON: (';')
+	IDENTIFIER: ('count')
+Error (Line 1): Expected '=' after identifier in assignment statement
+Error (Line 1): Expected a value, identifier, or nested expression
+Error (Line 1): Expected SEMICOLON (';') after identifier
 
-Statement 3 (Line 1): Condition
-	IDENTIFIER: ('i')
-	OPERATOR: ('<=')
-	NUMBER: ('5')
-	SEMICOLON: (';')
-
-Statement 4 (Line 1): Increment
-	IDENTIFIER: ('i')
-	OPERATOR: ('++')
-	PARENTHESIS: (')')
-	CURLY BRACE: ('{')
-
-Statement 5 (Line 2): Output
+Statement 3 (Line 2): Output
 	KEYWORD: ('print')
 	PARENTHESIS: ('(')
-	STRING: ("%d")
-	COMMA: (',')
-	IDENTIFIER: ('i')
-	PARENTHESIS: (')')
-	SEMICOLON: (';')
+Error (Line 2): Expected string literal
+Error (Line 2): Expected closing parenthesis ')'
+Statement 4 (Line 2): Assignment
+	IDENTIFIER: ('d')
+Error (Line 2): Expected '=' after identifier in assignment statement
+Error (Line 2): Expected a value, identifier, or nested expression
+Error (Line 2): Expected SEMICOLON (';') after identifier
 
-	CURLY BRACE: ('}')
+Statement 5 (Line 2): Assignment
+	IDENTIFIER: ('count')
+Error (Line 2): Expected '=' after identifier in assignment statement
+Error (Line 2): Expected a value, identifier, or nested expression
+Error (Line 2): Expected SEMICOLON (';') after identifier
 
-Statement 6 (Line 5): Conditional (if-statement)
-	KEYWORD: ('if')
-	PARENTHESIS: ('(')
-
-Statement 7 (Line 5): Condition
-	IDENTIFIER: ('x')
-	OPERATOR: ('<')
-	NUMBER: ('20')
-	PARENTHESIS: (')')
-	CURLY BRACE: ('{')
-
-	CURLY BRACE: ('}')
-
-Statement 8 (Line 9): Declaration
-	DATA TYPE: ('str')
-	IDENTIFIER: ('full_name')
-	SEMICOLON: (';')
-
-Statement 9 (Line 10): Declaration
-	DATA TYPE: ('int')
-	IDENTIFIER: ('age')
-	COMMA: (',')
-	IDENTIFIER: ('height')
-	SEMICOLON: (';')
-
-Statement 10 (Line 11): Declaration
-	DATA TYPE: ('bool')
-	IDENTIFIER: ('is_married')
-	SEMICOLON: (';')
-
-Statement 11 (Line 12): Input
-	KEYWORD: ('input')
-	PARENTHESIS: ('(')
-	STRING: ("Enter value: ")
-	DELIMITER: (',')
-	DELIMITER: ('&')
-	IDENTIFIER: ('result')
-	PARENTHESIS: (')')
-	SEMICOLON: (';')
-
-Statement 12 (Line 13): Output
-	KEYWORD: ('print')
-	PARENTHESIS: ('(')
-	STRING: ("Hello, World!")
-	PARENTHESIS: (')')
-	SEMICOLON: (';')
-
-Statement 13 (Line 14): Output
-	KEYWORD: ('print')
-	PARENTHESIS: ('(')
-	STRING: ("Value is: %d")
-	COMMA: (',')
-	IDENTIFIER: ('result')
-	PARENTHESIS: (')')
-	SEMICOLON: (';')
-
-Statement 14 (Line 15): Output
-	KEYWORD: ('print')
-	PARENTHESIS: ('(')
-	STRING: ("Name: %s, Age: %d")
-	COMMA: (',')
-	IDENTIFIER: ('name')
-	COMMA: (',')
-	IDENTIFIER: ('age')
-	PARENTHESIS: (')')
-	SEMICOLON: (';')
-
-Statement 15 (Line 16): Assignment
-	IDENTIFIER: ('x')
-	ASSIGNMENT OPERATOR: ('=')
-	IDENTIFIER: ('new_price')
-	SEMICOLON: (';')
-
-Statement 16 (Line 17): Assignment
-	IDENTIFIER: ('last_name')
-	ASSIGNMENT OPERATOR: ('=')
-	STRING: ("Legarda")
-	SEMICOLON: (';')
-
-Statement 17 (Line 18): Assignment
-	IDENTIFIER: ('new_price')
-	ASSIGNMENT OPERATOR: ('=')
-	NUMBER: ('90')
-	OPERATOR: ('-')
-	NUMBER: ('30')
-	SEMICOLON: (';')
-
-Statement 18 (Line 19): Assignment
-	IDENTIFIER: ('new_price')
-	ASSIGNMENT OPERATOR: ('=')
-	IDENTIFIER: ('discount')
-	OPERATOR: ('-')
-	NUMBER: ('30')
-	SEMICOLON: (';')
-
-Statement 19 (Line 20): Assignment
-	IDENTIFIER: ('discount_status')
-	ASSIGNMENT OPERATOR: ('=')
-	PARENTHESIS: ('(')
-	IDENTIFIER: ('sale_price')
-	OPERATOR: ('+')
-	NUMBER: ('20')
-	PARENTHESIS: (')')
-	OPERATOR: ('>=')
-	NUMBER: ('100')
-	SEMICOLON: (';')
+Statement 6 (Line 2): Assignment
+	IDENTIFIER: ('count')
+Error (Line 3): Expected '=' after identifier in assignment statement
+Error (Line 3): Expected a value, identifier, or nested expression
+Error (Line 3): Expected SEMICOLON (';') after identifier
 
