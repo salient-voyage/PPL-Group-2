@@ -617,7 +617,7 @@ void parse_if_condition(FILE *input_file, FILE *output_file, Token *current_toke
         }
         else
         {
-            fprintf(output_file, "Error (Line %d): Missing closing parenthesis in 'for' loop\n", current_token->line_number);
+            fprintf(output_file, "Error (Line %d): Missing closing parenthesis in 'if' statement\n", current_token->line_number);
             return;
         }
 
@@ -628,7 +628,7 @@ void parse_if_condition(FILE *input_file, FILE *output_file, Token *current_toke
             fprintf(output_file, "\n");
             get_token(input_file, current_token); // Get next token
 
-            // Parse statements inside the loop
+            // Parse statements inside the block
             while (current_token->type != DELIMITER || strcmp(current_token->value, "}") != 0)
             {
                 determine_statement(input_file, output_file, current_token);
@@ -639,20 +639,67 @@ void parse_if_condition(FILE *input_file, FILE *output_file, Token *current_toke
             if (current_token->type == DELIMITER && strcmp(current_token->value, "}") == 0)
             {
                 fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
+                get_token(input_file, current_token); // Move to next token after block
+                fprintf(output_file, "\n");
             }
             else
             {
-                fprintf(output_file, "Error (Line %d): Missing closing curly brace in 'for' loop\n", current_token->line_number);
+                fprintf(output_file, "Error (Line %d): Missing closing curly brace in 'if' statement\n", current_token->line_number);
+                return;
+            }
+
+            // Check for "else"
+            if (current_token->type == KEYWORD && strcmp(current_token->value, "else") == 0)
+            {
+                fprintf(output_file, "Statement %d (Line %d): Conditional (else-statement)\n", statement_number++, current_token->line_number);
+                fprintf(output_file, "\tKEYWORD: ('%s')\n", current_token->value);
+                fprintf(output_file, "\n");
+                get_token(input_file, current_token); // Get next token
+
+                // Check if "else" is followed by "if"
+                if (current_token->type == KEYWORD && strcmp(current_token->value, "if") == 0)
+                {
+                    parse_if_condition(input_file, output_file, current_token); // Recursive call for "else if"
+                }
+                else if (current_token->type == DELIMITER && strcmp(current_token->value, "{") == 0)
+                {
+                    fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
+                    fprintf(output_file, "\n");
+                    get_token(input_file, current_token); // Get next token
+
+                    // Parse statements inside the "else" block
+                    while (current_token->type != DELIMITER || strcmp(current_token->value, "}") != 0)
+                    {
+                        determine_statement(input_file, output_file, current_token);
+                        get_token(input_file, current_token); // Get next token
+                    }
+
+                    // Check for closing curly brace '}'
+                    if (current_token->type == DELIMITER && strcmp(current_token->value, "}") == 0)
+                    {
+                        fprintf(output_file, "\tCURLY BRACE: ('%s')\n", current_token->value);
+                    }
+                    else
+                    {
+                        fprintf(output_file, "Error (Line %d): Missing closing curly brace in 'else' block\n", current_token->line_number);
+                        return;
+                    }
+                }
+                else
+                {
+                    fprintf(output_file, "Error (Line %d): Expected '{' after 'else'\n", current_token->line_number);
+                    return;
+                }
             }
         }
         else
         {
-            fprintf(output_file, "Error (Line %d): Expected opening curly brace '{' in 'for' loop\n", current_token->line_number);
+            fprintf(output_file, "Error (Line %d): Expected opening curly brace '{' in 'if' statement\n", current_token->line_number);
         }
     }
     else
     {
-        fprintf(output_file, "Error (Line %d): Expected opening parenthesis '(' after 'for'\n", current_token->line_number);
+        fprintf(output_file, "Error (Line %d): Expected opening parenthesis '(' after 'if'\n", current_token->line_number);
     }
 
     fprintf(output_file, "\n");

@@ -1,4 +1,5 @@
-while (count > 0) {
-print (“%d“, count);
-count-- ; 
+if (int > 0) {
+    print("Positive\n");
+} else {
+    print("Negative\n");
 }
