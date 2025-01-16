@@ -8,20 +8,19 @@ Statement 2 (Line 1): Assignment
 	NUMBER: ('1')
 	SEMICOLON: (';')
 
-i 
-Statement 3 (Line 2): Condition
+Statement 3 (Line 1): Condition
 	IDENTIFIER: ('i')
 	OPERATOR: ('<=')
 	NUMBER: ('5')
 	SEMICOLON: (';')
 
-Statement 4 (Line 2): Increment
+Statement 4 (Line 1): Increment
 	IDENTIFIER: ('i')
 	OPERATOR: ('++')
 	PARENTHESIS: (')')
 	CURLY BRACE: ('{')
 
-Statement 5 (Line 4): Output
+Statement 5 (Line 2): Output
 	KEYWORD: ('print')
 	PARENTHESIS: ('(')
 	STRING: ("%d")
@@ -32,11 +31,11 @@ Statement 5 (Line 4): Output
 
 	CURLY BRACE: ('}')
 
-Statement 6 (Line 6): Conditional (if-statement)
+Statement 6 (Line 5): Conditional (if-statement)
 	KEYWORD: ('if')
 	PARENTHESIS: ('(')
 
-Statement 7 (Line 6): Condition
+Statement 7 (Line 5): Condition
 	IDENTIFIER: ('x')
 	OPERATOR: ('<')
 	NUMBER: ('20')

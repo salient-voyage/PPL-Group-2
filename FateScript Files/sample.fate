@@ -1,9 +1,11 @@
 for (i = 1; i <= 5; i++) {
     print("%d", i);
     }
+
 if (x < 20) {
         printf("x is less than 20\n");
     }
+    
 str full_name;
 int age, height;
 bool is_married;

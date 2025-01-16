@@ -4,35 +4,35 @@ i                    IDENTIFIER      1
 =                    OPERATOR        1         
 1                    NUMBER          1         
 ;                    DELIMITER       1         
+i                    IDENTIFIER      1         
+<=                   OPERATOR        1         
+5                    NUMBER          1         
+;                    DELIMITER       1         
+i                    IDENTIFIER      1         
+++                   OPERATOR        1         
+)                    DELIMITER       1         
+{                    DELIMITER       1         
+print                KEYWORD         2         
+(                    DELIMITER       2         
+"%d"                 STRING_LITERAL  2         
+,                    DELIMITER       2         
 i                    IDENTIFIER      2         
-<=                   OPERATOR        2         
-5                    NUMBER          2         
+)                    DELIMITER       2         
 ;                    DELIMITER       2         
-i                    IDENTIFIER      3         
-++                   OPERATOR        3         
-)                    DELIMITER       3         
-{                    DELIMITER       3         
-print                KEYWORD         4         
-(                    DELIMITER       4         
-"%d"                 STRING_LITERALS 4         
-,                    DELIMITER       4         
-i                    IDENTIFIER      4         
-)                    DELIMITER       4         
-;                    DELIMITER       4         
-}                    DELIMITER       5         
-if                   KEYWORD         6         
+}                    DELIMITER       3         
+if                   KEYWORD         5         
+(                    DELIMITER       5         
+x                    IDENTIFIER      5         
+<                    OPERATOR        5         
+20                   NUMBER          5         
+)                    DELIMITER       5         
+{                    DELIMITER       5         
+printf               DELIMITER       5         
 (                    DELIMITER       6         
-x                    IDENTIFIER      6         
-<                    OPERATOR        6         
-20                   NUMBER          6         
+"x is less than 20\n" STRING_LITERAL  6         
 )                    DELIMITER       6         
-{                    DELIMITER       6         
-printf               DELIMITER       7         
-(                    DELIMITER       7         
-"x is less than 20\n" STRING_LITERALS 7         
-)                    DELIMITER       7         
-;                    DELIMITER       7         
-}                    DELIMITER       8         
+;                    DELIMITER       6         
+}                    DELIMITER       7         
 str                  DATA_TYPE       9         
 full_name            IDENTIFIER      9         
 ;                    DELIMITER       9         
@@ -46,7 +46,7 @@ is_married           IDENTIFIER      11
 ;                    DELIMITER       11        
 input                KEYWORD         12        
 (                    DELIMITER       12        
-"Enter value: "      STRING_LITERALS 12        
+"Enter value: "      STRING_LITERAL  12        
 ,                    DELIMITER       12        
 &                    DELIMITER       12        
 result               IDENTIFIER      12        
@@ -54,19 +54,19 @@ result               IDENTIFIER      12
 ;                    DELIMITER       12        
 print                KEYWORD         13        
 (                    DELIMITER       13        
-"Hello, World!"      STRING_LITERALS 13        
+"Hello, World!"      STRING_LITERAL  13        
 )                    DELIMITER       13        
 ;                    DELIMITER       13        
 print                KEYWORD         14        
 (                    DELIMITER       14        
-"Value is: %d"       STRING_LITERALS 14        
+"Value is: %d"       STRING_LITERAL  14        
 ,                    DELIMITER       14        
 result               IDENTIFIER      14        
 )                    DELIMITER       14        
 ;                    DELIMITER       14        
 print                KEYWORD         15        
 (                    DELIMITER       15        
-"Name: %s, Age: %d"  STRING_LITERALS 15        
+"Name: %s, Age: %d"  STRING_LITERAL  15        
 ,                    DELIMITER       15        
 name                 IDENTIFIER      15        
 ,                    DELIMITER       15        
@@ -79,7 +79,7 @@ new_price            IDENTIFIER      16
 ;                    DELIMITER       16        
 last_name            IDENTIFIER      17        
 =                    OPERATOR        17        
-"Legarda"            STRING_LITERALS 17        
+"Legarda"            STRING_LITERAL  17        
 ;                    DELIMITER       17        
 new_price            IDENTIFIER      18        
 =                    OPERATOR        18        
