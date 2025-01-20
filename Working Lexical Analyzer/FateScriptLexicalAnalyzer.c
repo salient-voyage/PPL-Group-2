@@ -270,7 +270,7 @@ void lexicalAnalyzer(const char *input, FILE *file)
                 currentToken.type = ERROR;
             }
 
-            currentToken.value[j] = '\0'; // Null-terminate the token value
+            currentToken.value[j] = '\0';
 
             // Final check: If it's not exactly one character, set as an error
             if (charCount != 1)
